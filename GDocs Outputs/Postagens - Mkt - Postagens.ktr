@@ -580,6 +580,13 @@
             <function>IS NOT NULL</function>
             <rightvalue />
           </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>id</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue />
+          </condition>
         </conditions>
       </condition>
     </compare>
@@ -610,8 +617,19 @@
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>18Mk3_a0zlk2dUgKm2vDr4gecibPdHCapOXYPdtcKwyI</spreadsheetKey>
     <worksheetId>ot7248j</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBROETvLLykIDX6nef5LQpsd9PlclwIDAMNQgIIDgFD6E6txAU7U5lIaJgak8T9rf9cX4awKG55Mo7dK1sy7TH1vlof3kP5xMEisWh3tRcizUAKcZjw+2aunt70badStp59ufIpiKJMQktX+d9BMHn2qefx69d8lXh6u/UBysaad+WIGfWz4EPSnwysidSDgGk48aFWuHLvJ0WYIj2VKe4SbdkbQ4H/Z/vFUtLk4ODUYGuK+wvj5HORB+Z7ewVQL0tc6JqXgtgxWBWwqTYGM8hcToITyt7vPBjqddTH+3+V63Fva9BMakAtMa5GGezIg5/PT5Zi2uz4BHpDV2Ok4CJXy7nquGYOSwRFdis4C5GJ1TzP2Yf1SBqe+MM4MA/JH4H8lyD6a4N9poxta/Zb4WboIJL31KCYb6wxHyA7D7hsWHbyYeoeUQsQ19VbjUNb4+UbJYF/PtacS1l/K3toWZ1uEyf+szBZTLx2NEE0strSO7gllWUfCHjajopi9KsHN9ejYrHKYr/Tx5AO7I8j2zSLtQO2WjT/t/tBFoMqvi3/UUMamL4lM6dxw5uVaGluOHBK0cwLs/2QfCmr+iJqeYRxAw3sg0MY390r8D2aIgZBSfv30DngGShdPMdpM4XY9qQGwYgZSkLsGBvtR6vvkEPvNEYaA84llQHSk/0RUXjzhqijsKXhID+PSjTRRVYBhXG3T2/KPxuxhOqNrWNdWE4C486PqycuwLHKoC2wo1yYCprxovLcOzCCffX4wYjyMLlWB88aDFC6ZALjEM5iepvpCw7wp3b4OrBNqKkoRzOOpO7kAwfB/w1B/vKRK1Cox/zHmtI9LHl7tqNzNbO0+OyuJMRsRtFZd4jfuKdiUGSvHr2ibJQ8gu2bqXIkLF50GAzj4ZKqO1CrOwsYJNdpHzChT+Onz3BSKi1ITafC3Ad6605S6oqfEDUy7wfXZOCkpVeMd814WG9/k6QSREPFVRLBpKOtJ34oOQDXCoFq3ma9BmXX+Dh1dGO9+3YLH1ffGvkHemyAEB1nphI8sIoeXkztItOjkm9O+96bPfkzuorKmsfNCe9kvxuxBjJTG62x+mcJyBeb+KtxVo+sR37MIbMgtcLCJ6/pIIzcWWZ32TV0Kw5lLG/dISW6XgAsUrxDkac1DldD0Yyg+mYzJ3dUbX6lnG3Lfzq5A3tkEaIBVIemwL057ai2WKzllMXmDA4mgCz612kKO6wGuclY1zKhIMD4wITAJBgUrDgMCGgUABBTZjDfeddjSWIfBaWOOzw0vpAqlCwQUmz4wkPH1DA0d7rAGeBzF1KDkwvgCAwGGoA==</privateKeyStore>
     <fields>
+      <field>
+        <field_name>id</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
       <field>
         <field_name>data</field_name>
         <field_type>Date</field_type>
@@ -657,7 +675,7 @@
         <field_trim_type>none</field_trim_type>
       </field>
       <field>
-        <field_name>link</field_name>
+        <field_name>produto</field_name>
         <field_type>String</field_type>
         <field_format />
         <field_currency />
@@ -668,7 +686,73 @@
         <field_trim_type>none</field_trim_type>
       </field>
       <field>
-        <field_name>produto</field_name>
+        <field_name>medium</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>source</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>campaign</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>content</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>urlsemparametro</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>urlfinal</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>urlpost</field_name>
         <field_type>String</field_type>
         <field_format />
         <field_currency />
@@ -722,6 +806,10 @@
     <return_field />
     <fields>
       <field>
+        <column_name>id</column_name>
+        <stream_name>id</stream_name>
+      </field>
+      <field>
         <column_name>data_postagem</column_name>
         <stream_name>data</stream_name>
       </field>
@@ -738,12 +826,32 @@
         <stream_name>titulo</stream_name>
       </field>
       <field>
-        <column_name>link</column_name>
-        <stream_name>link</stream_name>
-      </field>
-      <field>
         <column_name>produto</column_name>
         <stream_name>produto</stream_name>
+      </field>
+      <field>
+        <column_name>medium</column_name>
+        <stream_name>medium</stream_name>
+      </field>
+      <field>
+        <column_name>source</column_name>
+        <stream_name>source</stream_name>
+      </field>
+      <field>
+        <column_name>campaign</column_name>
+        <stream_name>campaign</stream_name>
+      </field>
+      <field>
+        <column_name>content</column_name>
+        <stream_name>content</stream_name>
+      </field>
+      <field>
+        <column_name>url</column_name>
+        <stream_name>urlfinal</stream_name>
+      </field>
+      <field>
+        <column_name>url_post</column_name>
+        <stream_name>urlpost</stream_name>
       </field>
     </fields>
     <cluster_schema />
