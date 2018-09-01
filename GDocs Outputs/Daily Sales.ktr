@@ -595,7 +595,7 @@ LEFT JOIN bi_categorizacao_categoria cc on
 WHERE
 vp.qtde > 0 and
 vp.preco_liquido > 0 and
-DAY(vp.data_venda) &lt; DAY(GETDATE()) and CONVERT(NVARCHAR(6), vp.data_venda, 112) IN (
+DAY(vp.data_venda) &lt;= DAY(GETDATE()-1) and CONVERT(NVARCHAR(6), vp.data_venda, 112) IN (
 	CONVERT(NVARCHAR(6), GETDATE()-1, 112), -- Mes Atual
 	CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112), -- Mes Passado
 	CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) -- Ano Passado
@@ -661,7 +661,7 @@ fp.qtde > 0 and
 f.valor_sub_itens > 0 and
 fp.serie_nf IN (2,7) and
 f.filial = 'e-commerce' and
-DAY(f.emissao) &lt; DAY(GETDATE()) and CONVERT(NVARCHAR(6), f.emissao, 112) IN (
+DAY(f.emissao) &lt;= DAY(GETDATE()-1) and CONVERT(NVARCHAR(6), f.emissao, 112) IN (
 	CONVERT(NVARCHAR(6), GETDATE()-1, 112), -- Mes Atual
 	CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112), -- Mes Passado
 	CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) -- Ano Passado
@@ -707,7 +707,7 @@ CASE WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
     <worksheetId>okhov0b</worksheetId>
-    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBRuUrBfoq8LZcWoEgeaDcOcsHbqYQIDAMNQgIIDgHSzN4VaJpiO02POgVGrpjXadDybzvsKTlq7+zlX4zqmlA0Y30ChFfVsRqWxCHqqZxD03Egrf59AnJLdggu8ljZl1TT8srXGD8h6VpidCgMgETQIApsNpcxe3skboSEzVxgC+CLuffGepcM32csw6w/1Ox/ppJo2gDlKZEgkF5P5BBKpQ9tcivXfN/clFwUTfYQAo8TlwsJMjJqmcKPX3LSs4TLmnp5CvPV9G6omuV65ZFL3Mw118uz8Y3ygL3B4PAgAlmVuIFZV/oktoOTFtjR44Bgfp0aA/5aJgUId6ezaVE+WSwxrHqr/atjA3wgQwUDI12V2ea6cI3EOnob7JnVOG+AM7WaGWgCtCX4FuvBhDWqtcHtRrIZpJNDI6SZh+7Pt3shLCp26iT9SHGIp+ETSNVCDkmfVp2mqvA2mM4s0nuKfrpYPhFW2Z8fLlYiwNMwXgVfurQgdI7Kp2nZ83ufLif3C3leDECCTstSNk9ktGMAx7w4nvilRw+imQm2RsqkRORiqKAl8qZJTQKfjupXnihamkuwWvsKxqFM14JmpF49p5Yikh+mRCydaegtno4opplYSpAyRQV1WytHNNKRjslsZT/oP22jnSPZIteGCbztz83McQxYIdgKGAT9ycTPJZjTfo3acbKCc4cUyCkx4szM8hJGzw52wHJa5hoW1VKwtwtYZydEHSZ3aStihD525LoOfzKhsz0U0tyrTwEfdWKL0u/H/AyW6Is4oQS9rl2a9SITLQ9NU5+bg5COFUBok9uX9dxCEilQGc8Vkqqmx06HAltAX5wk8VLjnnGYKIGKhqFaVnzEXzuhnYJNRrXV5Wiapcm8+O7py3NBM2SEAXhhqZ4jNyZIn8lXIf95LQfpvl+KpdTjebuxEFCrruRHuXEa9Aw91ehOicnQ745Qrax4x7B5CpUQRYvJmVrPILDuqzeWSDewKLAQ8vyHTCbrtJGjaaEOZvEII3wQn1F3c2xFr0kNfsT4KrPh1m4ySuJWEP0gkzBVdyrLSAoN06QlIYlWcPuR5ze1jEn+AxBK0mFadF3pB2sZVfCFUfzoTV3QWJ+QEqA6h7jlGWak4gAHTnG4E9OcvOEacr8zBuHuTwMAMkyAYcoadxFN2QJeKvQEJIP+JJAHw5HAOhYNy0b7LwtBjatr/qSAIq5QS4CGkgskRLwLDrOi1P/FMVUeaMD4wITAJBgUrDgMCGgUABBSWpPWyRRyluvabN1ljDSdCxuwsmQQUD22/aJjiVYwZbGeZ76PligMHkJgCAwGGoA==</privateKeyStore>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -718,6 +718,316 @@ CASE WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-
     <GUI>
       <xloc>368</xloc>
       <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Daily Sales Sellers</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT
+'' as colecao,
+sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1) as vendedor,
+LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))) as filial,
+CASE
+	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
+	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
+	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
+END as periodo,
+CASE WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,vp.data_venda,103) ELSE '' END as data_venda,
+SUM(vp.qtde) as itens,
+CAST(SUM(vp.qtde*(vp.preco_liquido + vp.desconto_item)) as INT) as preco_original_total,
+CAST(SUM(vp.qtde*(v.valor_pago/v.valor_venda_bruta*vp.preco_liquido)) as INT) as receita_total,
+CAST(SUM(c.preco1*vp.qtde) as INT) as custo_total
+FROM loja_venda_produto vp
+INNER JOIN loja_venda v on
+	v.ticket = vp.ticket and
+	vp.codigo_filial = v.codigo_filial and
+	v.data_venda = vp.data_venda
+INNER JOIN loja_vendedores lv on
+	lv.codigo_filial = v.codigo_filial and
+	lv.vendedor = v.vendedor
+INNER JOIN filiais f on f.cod_filial = vp.codigo_filial
+INNER JOIN (
+	SELECT 'IGUATEMI CAMPINAS' as filial, 'IGUATEMI' as sigla_filial UNION
+	SELECT 'MM DOM PEDRO' as filial, 'DOM PEDRO' as sigla_filial UNION
+	SELECT 'PREMIUM OUTLET ITUPEVA' as filial, 'OUTLET' as sigla_filial UNION
+	SELECT 'SANTA URSULA' as filial, 'RIBEIRÃO' as sigla_filial UNION
+	SELECT 'JUNDIAI SHOPPING' as filial, 'JUNDIAÍ' as sigla_filial UNION
+	SELECT 'SANTOS PRAIAMAR' as filial, 'SANTOS' as sigla_filial UNION
+	SELECT 'PIRACICABA SHOPPING' as filial, 'PIRACICABA' as sigla_filial UNION
+	SELECT 'CAMBUI' as filial, 'CAMBUÍ' as sigla_filial UNION
+	SELECT 'E-COMMERCE' as filial, 'E-COMMERCE' as sigla_filial
+) sf on sf.filial = COALESCE(NULLIF(LTRIM(RTRIM(f.filial)),'e-commerce'),'CAMBUI')
+INNER JOIN produtos p on p.produto = vp.produto
+INNER JOIN produtos_precos c on
+	p.produto = c.produto and
+	c.codigo_tab_preco = 02 -- 02 custo
+WHERE
+vp.qtde > 0 and
+vp.preco_liquido > 0 and
+DAY(vp.data_venda) &lt;= DAY(GETDATE()-1) and CONVERT(NVARCHAR(6), vp.data_venda, 112) IN (
+	CONVERT(NVARCHAR(6), GETDATE()-1, 112), -- Mes Atual
+	CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112), -- Mes Passado
+	CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) -- Ano Passado
+)
+GROUP BY
+sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1),
+LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))),
+CASE
+	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
+	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
+	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
+END,
+CASE WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,vp.data_venda,103) ELSE '' END
+
+
+UNION
+
+SELECT
+'' as colecao,
+'' as vendedor,
+'E-COMMERCE' as filial,
+CASE
+	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
+	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
+	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
+END as periodo,
+CASE WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,f.emissao,103) ELSE '' END as data_venda,
+SUM(fp.qtde) as itens,
+CAST(SUM(fp.valor + fp.desconto_item) as INT) as preco_original_total,
+CAST(SUM(f.valor_total/f.valor_sub_itens*fp.valor) as INT) as receita_total,
+CAST(SUM(c.preco1*fp.qtde) as INT) as custo_total
+FROM faturamento_prod fp
+INNER JOIN faturamento f on
+	f.nf_saida = fp.NF_SAIDA and
+	fp.filial = f.filial
+INNER JOIN produtos p on p.produto = fp.produto
+INNER JOIN produtos_precos c on
+	p.produto = c.produto and
+	c.codigo_tab_preco = 02 -- 02 custo
+WHERE
+fp.qtde > 0 and
+f.valor_sub_itens > 0 and
+fp.serie_nf IN (2,7) and
+f.filial = 'e-commerce' and
+DAY(f.emissao) &lt;= DAY(GETDATE()-1) and CONVERT(NVARCHAR(6), f.emissao, 112) IN (
+	CONVERT(NVARCHAR(6), GETDATE()-1, 112), -- Mes Atual
+	CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112), -- Mes Passado
+	CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) -- Ano Passado
+)
+GROUP BY
+CASE
+	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
+	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
+	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
+END,
+CASE WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,f.emissao,103) ELSE '' END</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Daily Sales Sellers Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
+    <worksheetId>of6w86y</worksheetId>
+    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBSEhd8jFVpj4ghOA8Vmxc/QvVIQYwIDAMNQgIIDgCfzGD57Q+FYhCVcg23ipH+5lh5dkk3JPoe35sr/2zFNYStzO1B0PpuUB9IfjOfBFaQJG+dDTFI8CFFPl+qDoiFVjObxqvHMNAWV1tRrll07T9B4tIyApDXrETjZOXRjuuSMnlspjujgE6QVxIf/WXSaurYlc1RZIv0yPfc8ZOdok+fD2ZBRYBLaIuwb44o81ZX+3xAQ9p6k5Xyfc92OrOV/8t0fUyuOUQSI/bl8RG3BT1a/U6sly9K63zv8vOOjWVHdvgzni0Pb09xf8eGILy6tqEQb0qlFKSUARjnSbZF3bkM9x/+jbJrgSSwUyFJS4Hkmwyw92fss+duGnYuNybvzHgjBWoijZYJ76O5YU2CJjKX1JT1n8YROyJihHgqWQzNYPyLFdXy+CnIWJlxIm+NwPL778iz61xEVjyS5GeFIqCsqVmME0fZ+rhke4+4CFKQOe48yjncaiY8yvvxWfME/0g0o48qPAG0AYmrAAKm0gYS6g2HKRu15LtmbfA9SmCfWr5WDm6zvYjbJ8SaY8AUdSPpImUUUIYFJU+I9GIacgakbvpSG2yMbwcpqqGkHx9LGJaufLpwgeBRSYpN+Xur6guphD9hoGfJ5ORQUPa5ci1GVyZ/oTATyit+CKiko34yKTaK7qtOInKrcXevcCM8L/GS0tJofjR+AD1nE0aKCyHjip1Hu7qjbfgoP5Ao+UCEaTIE5KIFQKnCZFJeS66UNFg9VbhbRHfwVkeR61bTqMxHE2YXPcnYC87Sn0Ke2iFeeQ7BqrXsNJV1QdCLlFEJr7Y3pwCaoeRgUKbf4Ryk8SfA1LJYqvoMqWxXYAkM+euihol7gRH/FutgSoTljwfl41lTIwu6OpBGCN15Xp9903nVyZXFLKRGNHABTj8LgGCxs1LmTxictJyKy5I47HJtyf8Q8MmBa4SbzO35hgh57No0gqAdRCOnSj/lw4wR+CdALWYAjRnh4DnJHeGUVHitpNfMBISg8Ul6ttxXqDJnTO7pZQ6ZLTkgp9ok+DaCc1Y35gn9/nKQKs9acABiC94tIM/lc88PLdhEYxYaGYfft1krf7FTbxeZNxFqos9JIg0NkWRRbIjZScpxk2Xxkl2U69tfvCnfX//X9snq5yhnDvD5nkm2GG2/SjHVA6gSrlmrrrxJLyoDshkWxCubHz/Y+GqjejEWajXYX5UWFzYy4MD4wITAJBgUrDgMCGgUABBR9CbInscBnplu/6+4JTosVc52tZAQUYk/zU8P4jgVD7Udczy8SiGxdrPECAwGGoA==</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Daily Sales Sellers Output 2</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
+    <worksheetId>ouzctw0</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Daily Sales Sellers WEEK</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT
+'' as colecao,
+sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1) as vendedor,
+LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))) as filial,
+CASE
+	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
+	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
+	WHEN CAST(vp.data_venda as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
+END as periodo,
+'' as data_venda,
+SUM(vp.qtde) as itens,
+CAST(SUM(vp.qtde*(vp.preco_liquido + vp.desconto_item)) as INT) as preco_original_total,
+CAST(SUM(vp.qtde*(v.valor_pago/v.valor_venda_bruta*vp.preco_liquido)) as INT) as receita_total,
+CAST(SUM(c.preco1*vp.qtde) as INT) as custo_total
+FROM loja_venda_produto vp
+INNER JOIN loja_venda v on
+	v.ticket = vp.ticket and
+	vp.codigo_filial = v.codigo_filial and
+	v.data_venda = vp.data_venda
+INNER JOIN loja_vendedores lv on
+	lv.codigo_filial = v.codigo_filial and
+	lv.vendedor = v.vendedor
+INNER JOIN filiais f on f.cod_filial = vp.codigo_filial
+INNER JOIN (
+	SELECT 'IGUATEMI CAMPINAS' as filial, 'IGUATEMI' as sigla_filial UNION
+	SELECT 'MM DOM PEDRO' as filial, 'DOM PEDRO' as sigla_filial UNION
+	SELECT 'PREMIUM OUTLET ITUPEVA' as filial, 'OUTLET' as sigla_filial UNION
+	SELECT 'SANTA URSULA' as filial, 'RIBEIRÃO' as sigla_filial UNION
+	SELECT 'JUNDIAI SHOPPING' as filial, 'JUNDIAÍ' as sigla_filial UNION
+	SELECT 'SANTOS PRAIAMAR' as filial, 'SANTOS' as sigla_filial UNION
+	SELECT 'PIRACICABA SHOPPING' as filial, 'PIRACICABA' as sigla_filial UNION
+	SELECT 'CAMBUI' as filial, 'CAMBUÍ' as sigla_filial UNION
+	SELECT 'E-COMMERCE' as filial, 'E-COMMERCE' as sigla_filial
+) sf on sf.filial = COALESCE(NULLIF(LTRIM(RTRIM(f.filial)),'e-commerce'),'CAMBUI')
+INNER JOIN produtos p on p.produto = vp.produto
+INNER JOIN produtos_precos c on
+	p.produto = c.produto and
+	c.codigo_tab_preco = 02 -- 02 custo
+WHERE
+vp.qtde > 0 and
+vp.preco_liquido > 0 and
+(
+	CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) -- Semana Atual
+	OR CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) -- Semana Passada
+	OR CAST(vp.data_venda as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) -- Semana Ano Passado
+)
+GROUP BY
+sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1),
+LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))),
+CASE
+	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
+	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
+	WHEN CAST(vp.data_venda as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
+END
+
+
+UNION
+
+SELECT
+'' as colecao,
+'' as vendedor,
+'E-COMMERCE' as filial,
+CASE
+	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
+	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
+	WHEN CAST(f.emissao as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
+END as periodo,
+'' as data_venda,
+SUM(fp.qtde) as itens,
+CAST(SUM(fp.valor + fp.desconto_item) as INT) as preco_original_total,
+CAST(SUM(f.valor_total/f.valor_sub_itens*fp.valor) as INT) as receita_total,
+CAST(SUM(c.preco1*fp.qtde) as INT) as custo_total
+FROM faturamento_prod fp
+INNER JOIN faturamento f on
+	f.nf_saida = fp.NF_SAIDA and
+	fp.filial = f.filial
+INNER JOIN produtos p on p.produto = fp.produto
+INNER JOIN produtos_precos c on
+	p.produto = c.produto and
+	c.codigo_tab_preco = 02 -- 02 custo
+WHERE
+fp.qtde > 0 and
+f.valor_sub_itens > 0 and
+fp.serie_nf IN (2,7) and
+f.filial = 'e-commerce' and
+(
+	CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) -- Semana Atual
+	OR CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) -- Semana Passada
+	OR CAST(f.emissao as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) -- Semana Ano Passado
+)
+GROUP BY
+CASE
+	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
+	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
+	WHEN CAST(f.emissao as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
+END</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>528</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -890,7 +1200,7 @@ END</sql>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
     <worksheetId>o973wjv</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBQ0Lr5KN+ozqL6kZV3xUY0vk/TTmgIDAMNQgIIDgLoUliKMMvB7wxW+o3X8CL2zHEGO7xmgTi9f2pEVBj8wuKI+sgsdvBR/soJkN/hnjdsFNXgM2VZPNGh6/epyus0QSo5eRq9UUngZrhVQAufN5X0GHD3cSFep0G38i66UxiRus3NQhsBySSYxfFZDZtDzgh5mdkFLJrP9soDhNj4bvYvQGOT0UFmaWDe8m4ZVltpSHstQ5hTstS85Oeu7Q9UfSknmyojTahEdzwCZOj4mC/sKQbEpIrWtlZmwxARNa854Q7UFnzPxll4Bgkjnvfm4ZihFbPVxpih04E+AQtrkyhZBzvUz6bg3P708uZ/Xgv8JSu95YMlNKCaHKsB2K3Y9AFQv52LfmESRNWK9YAxl6Eb9ZQ/UkAkbAxtNjDFsE+9yq3cBoZ2h4pEtHT9EkYk6xH17cXxuI3q8wtth0G8izxFwWTW/gXbWuBFb97F2xeuZXdAO7TduItompJMM5szLmT9dG6XmpYTDZiJZdidSG/C4eBArA3Zm9PEgspvzmRZYP4WlmIST8+oVqrxU/u0DxxR81dikQm+nPPFDlp0ftQJ0wgL/uGHfAmJiIpWjQ9HdC3Ff0Rw5NeCXNq/bM9VPP+ENHlgeRhm9B++on8DK5QK+ZuzvsdGKELLPP0ETIvc+dMPi5+Nxtsc1xAulaEW3ShpJHgbuouyWxUgQ9X+9Z/jX/W6zVCY4onqiu+YbE2ztmaKhm7K4e/KW82cgyaCjavg4c1EU0s5tEBEMldDPVb9ydTIu80M1ZWQz22kv8wBx/XeiCimOTPJlrePbqGbpCkS5BLqLZbSsU52bO87nMivLLhGVOiiEW5mBnGbY+BCaJ8AOEAu6+BG+yzcs7fa5f0rEXXWCkB7ors5RQxEvbIs5ExYR+hTierXFn1GwuAdVeDF62i6vUq0P9HA09LfA5tWfpcFLKQyc7RSXlmvZoEI9VbWnW0vYY5qNj53Hek8n91uVVx2BIDMPtmGCJiVdmH+ZxEfTkYhDu5aUUdkHCORl5JTv6drVQjYvHzLnETCNpGzpPVaXMbpJ22rCXPL70bJ5EqPB9giXM4B+QKc1Y7P3+arR2o8h1loHygEckX99AANhvumLQSYgb6c2P+h1rzz+NE8b8Xa5mffbZCnpCzy2NFzUfmbkaERFPEliiRp4kcc8OajKWH5sIRlmCYicJUWNEOEB9IUPToDu8DyXMD4wITAJBgUrDgMCGgUABBTTlPhfWGbmdOgAU6ybyO0sCaOb9gQU42KKN1iwlibbUFCYmJSftcDUr1UCAwGGoA==</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -989,7 +1299,7 @@ COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros')</sql>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
     <worksheetId>oo19bh8</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1017,7 +1327,7 @@ COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros')</sql>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
     <worksheetId>o48h762</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1074,7 +1384,7 @@ LEFT JOIN bi_categorizacao_categoria cc on
 	cc.tipo_produto is null and
 	cc.cod_categoria is null
 WHERE
-YEAR(cp.entrega)*100 + MONTH(cp.entrega) = YEAR(GETDATE())*100 + MONTH(GETDATE())
+YEAR(cp.entrega)*100 + MONTH(cp.entrega) = YEAR(GETDATE()-1)*100 + MONTH(GETDATE()-1)
 and cp.qtde_entregar > 0
 GROUP BY
 p.colecao,
@@ -1190,7 +1500,7 @@ COALESCE(gf.filial,LTRIM(RTRIM(e.filial)))</sql>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
     <worksheetId>o3tk3sc</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1218,7 +1528,7 @@ COALESCE(gf.filial,LTRIM(RTRIM(e.filial)))</sql>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
     <worksheetId>obc5g81</worksheetId>
-    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBR3SaklLaM89m5jQOpjkMhf6+S+FAIDAMNQgIIDgLIcwwisfVoH2gh4M+RPT8h5J2IW93qHCpfwftMyHSGyP/9kuMhiDZZGaU+P708TmGxins87me7lpySSpVTRb4ea2OoNb5JPYgcYeiKmoVYu4ktNuT9r1RzQ1KI2z7tFGARuq8dBYXOhacsJF0GaDBQdxbCbHzGaxM1aDR9AlYoBNIozrLpELj32pe/ZSg8tyNW6Lrr+84GYqbgqli9sVKuipyOXT5spif7OWMbFqaPdLvPwrbHQnbYM9vwfwdbH39vg+IQhg4+uV88YSSg8mWb7kyf9PYUpgnD00UQEkJ6pFSzJyUff/wNL4O/+GXUUAwz2WOC+DrtP16A025R2R6wHHC3J1JGtY4Q3tdp/L/aXh9CHP3gfaVGFoXJzSGbzkUPFnQTs34enM/UbzDsY8KvRM0k9OUKMm45kwru7bIqHaGObCwuZ1Z5yEaEw6RV7LG4Y9V/7PEkOvjCMmyVHMEJ04SCKARz0pUFq3SngUnFN+FgOhW0S0QXJ5QyMhMZ7uaLGHhdSXoQ849KuAhHn2VGNZ1USaggU8rYOB9WzD68rQywXhqB8VWM21I/yHYU6G9GdaR3X2BpEIiojXR0Y3xMeTS+7N8bG7tnqnB9y8DwpfhNiejkDGEHbEn28fSmKjJEWsicKdTq9FqZAAyfsOVXx11j6dyZT90RozR51NQhZRbIOU3plLGzVVNttULSk0T2TVlA+R4uvbQyLrzjSeuuaSyRlJLmFzM/HwPnhDbmukJSUoLZ137lhVstoSpdkQLI1CqoUwHm8/yZVeNIoXLqSb1lxaZg3U5ZYspIZqyds9dVx+g6J+9AFGHmphQPy6WfcQ0+ltzFdakG75d/S6D1aaPCEff+l4+scvnmGY13xiVL84Gr39+LlN+3zPfwZqmkr97K2JV/6Qd31Sy+haliDvplM0vHcdF2YZtjGYZC6H48umn3aH3UqsaPWEjN6RQ53a/kiWbwfEf6durezAEpwxhTahlJWJXfcXqHVF8CyS2umlEy/eagTTEFw2xT9+TYhup69EerEyorVVeeC7byxZcNAq/iVqdhUYl+/bUGDOOotIxbNSIyXfaRSXFBy8OZb8IVDfqTEHJq8jSX4tLvmoduCirrdr5X+uffDvLXbqFziySZ51KqJ6sDzZSEYu2jkk/DaH3WzqpaAfcr8OWXcE0YWqAdHKjsmtrvnrDTpMD4wITAJBgUrDgMCGgUABBTg99bSCt4vs6KTFvYfRKn00d/iGwQUJ6C6a7MzB3b8MkYDYUrz/fbts8QCAwGGoA==</privateKeyStore>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -1298,316 +1608,6 @@ COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros')</sql>
     <GUI>
       <xloc>208</xloc>
       <yloc>16</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Daily Sales Sellers</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT
-'' as colecao,
-sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1) as vendedor,
-LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))) as filial,
-CASE
-	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
-	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
-	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
-END as periodo,
-CASE WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,vp.data_venda,103) ELSE '' END as data_venda,
-SUM(vp.qtde) as itens,
-CAST(SUM(vp.qtde*(vp.preco_liquido + vp.desconto_item)) as INT) as preco_original_total,
-CAST(SUM(vp.qtde*(v.valor_pago/v.valor_venda_bruta*vp.preco_liquido)) as INT) as receita_total,
-CAST(SUM(c.preco1*vp.qtde) as INT) as custo_total
-FROM loja_venda_produto vp
-INNER JOIN loja_venda v on
-	v.ticket = vp.ticket and
-	vp.codigo_filial = v.codigo_filial and
-	v.data_venda = vp.data_venda
-INNER JOIN loja_vendedores lv on
-	lv.codigo_filial = v.codigo_filial and
-	lv.vendedor = v.vendedor
-INNER JOIN filiais f on f.cod_filial = vp.codigo_filial
-INNER JOIN (
-	SELECT 'IGUATEMI CAMPINAS' as filial, 'IGUATEMI' as sigla_filial UNION
-	SELECT 'MM DOM PEDRO' as filial, 'DOM PEDRO' as sigla_filial UNION
-	SELECT 'PREMIUM OUTLET ITUPEVA' as filial, 'OUTLET' as sigla_filial UNION
-	SELECT 'SANTA URSULA' as filial, 'RIBEIRÃO' as sigla_filial UNION
-	SELECT 'JUNDIAI SHOPPING' as filial, 'JUNDIAÍ' as sigla_filial UNION
-	SELECT 'SANTOS PRAIAMAR' as filial, 'SANTOS' as sigla_filial UNION
-	SELECT 'PIRACICABA SHOPPING' as filial, 'PIRACICABA' as sigla_filial UNION
-	SELECT 'CAMBUI' as filial, 'CAMBUÍ' as sigla_filial UNION
-	SELECT 'E-COMMERCE' as filial, 'E-COMMERCE' as sigla_filial
-) sf on sf.filial = COALESCE(NULLIF(LTRIM(RTRIM(f.filial)),'e-commerce'),'CAMBUI')
-INNER JOIN produtos p on p.produto = vp.produto
-INNER JOIN produtos_precos c on
-	p.produto = c.produto and
-	c.codigo_tab_preco = 02 -- 02 custo
-WHERE
-vp.qtde > 0 and
-vp.preco_liquido > 0 and
-DAY(vp.data_venda) &lt; DAY(GETDATE()) and CONVERT(NVARCHAR(6), vp.data_venda, 112) IN (
-	CONVERT(NVARCHAR(6), GETDATE()-1, 112), -- Mes Atual
-	CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112), -- Mes Passado
-	CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) -- Ano Passado
-)
-GROUP BY
-sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1),
-LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))),
-CASE
-	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
-	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
-	WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
-END,
-CASE WHEN CONVERT(NVARCHAR(6), vp.data_venda, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,vp.data_venda,103) ELSE '' END
-
-
-UNION
-
-SELECT
-'' as colecao,
-'' as vendedor,
-'E-COMMERCE' as filial,
-CASE
-	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
-	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
-	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
-END as periodo,
-CASE WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,f.emissao,103) ELSE '' END as data_venda,
-SUM(fp.qtde) as itens,
-CAST(SUM(fp.valor + fp.desconto_item) as INT) as preco_original_total,
-CAST(SUM(f.valor_total/f.valor_sub_itens*fp.valor) as INT) as receita_total,
-CAST(SUM(c.preco1*fp.qtde) as INT) as custo_total
-FROM faturamento_prod fp
-INNER JOIN faturamento f on
-	f.nf_saida = fp.NF_SAIDA and
-	fp.filial = f.filial
-INNER JOIN produtos p on p.produto = fp.produto
-INNER JOIN produtos_precos c on
-	p.produto = c.produto and
-	c.codigo_tab_preco = 02 -- 02 custo
-WHERE
-fp.qtde > 0 and
-f.valor_sub_itens > 0 and
-fp.serie_nf IN (2,7) and
-f.filial = 'e-commerce' and
-DAY(f.emissao) &lt; DAY(GETDATE()) and CONVERT(NVARCHAR(6), f.emissao, 112) IN (
-	CONVERT(NVARCHAR(6), GETDATE()-1, 112), -- Mes Atual
-	CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112), -- Mes Passado
-	CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) -- Ano Passado
-)
-GROUP BY
-CASE
-	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN 'MTD'
-	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(m,-1,GETDATE()-1), 112) THEN 'LM'
-	WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), DATEADD(yy,-1,GETDATE()-1), 112) THEN 'LY'
-END,
-CASE WHEN CONVERT(NVARCHAR(6), f.emissao, 112) = CONVERT(NVARCHAR(6), GETDATE()-1, 112) THEN CONVERT(NVARCHAR,f.emissao,103) ELSE '' END</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Daily Sales Sellers Output</name>
-    <type>GoogleSpreadsheetOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
-    <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
-    <worksheetId>of6w86y</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>368</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Daily Sales Sellers WEEK</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT
-'' as colecao,
-sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1) as vendedor,
-LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))) as filial,
-CASE
-	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
-	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
-	WHEN CAST(vp.data_venda as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
-END as periodo,
-'' as data_venda,
-SUM(vp.qtde) as itens,
-CAST(SUM(vp.qtde*(vp.preco_liquido + vp.desconto_item)) as INT) as preco_original_total,
-CAST(SUM(vp.qtde*(v.valor_pago/v.valor_venda_bruta*vp.preco_liquido)) as INT) as receita_total,
-CAST(SUM(c.preco1*vp.qtde) as INT) as custo_total
-FROM loja_venda_produto vp
-INNER JOIN loja_venda v on
-	v.ticket = vp.ticket and
-	vp.codigo_filial = v.codigo_filial and
-	v.data_venda = vp.data_venda
-INNER JOIN loja_vendedores lv on
-	lv.codigo_filial = v.codigo_filial and
-	lv.vendedor = v.vendedor
-INNER JOIN filiais f on f.cod_filial = vp.codigo_filial
-INNER JOIN (
-	SELECT 'IGUATEMI CAMPINAS' as filial, 'IGUATEMI' as sigla_filial UNION
-	SELECT 'MM DOM PEDRO' as filial, 'DOM PEDRO' as sigla_filial UNION
-	SELECT 'PREMIUM OUTLET ITUPEVA' as filial, 'OUTLET' as sigla_filial UNION
-	SELECT 'SANTA URSULA' as filial, 'RIBEIRÃO' as sigla_filial UNION
-	SELECT 'JUNDIAI SHOPPING' as filial, 'JUNDIAÍ' as sigla_filial UNION
-	SELECT 'SANTOS PRAIAMAR' as filial, 'SANTOS' as sigla_filial UNION
-	SELECT 'PIRACICABA SHOPPING' as filial, 'PIRACICABA' as sigla_filial UNION
-	SELECT 'CAMBUI' as filial, 'CAMBUÍ' as sigla_filial UNION
-	SELECT 'E-COMMERCE' as filial, 'E-COMMERCE' as sigla_filial
-) sf on sf.filial = COALESCE(NULLIF(LTRIM(RTRIM(f.filial)),'e-commerce'),'CAMBUI')
-INNER JOIN produtos p on p.produto = vp.produto
-INNER JOIN produtos_precos c on
-	p.produto = c.produto and
-	c.codigo_tab_preco = 02 -- 02 custo
-WHERE
-vp.qtde > 0 and
-vp.preco_liquido > 0 and
-(
-	CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) -- Semana Atual
-	OR CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) -- Semana Passada
-	OR CAST(vp.data_venda as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) -- Semana Ano Passado
-)
-GROUP BY
-sf.sigla_filial + ' - ' + SUBSTRING(lv.vendedor_apelido, 1, CHARINDEX(' ', lv.vendedor_apelido, 1) - 1),
-LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))),
-CASE
-	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
-	WHEN CAST(vp.data_venda as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
-	WHEN CAST(vp.data_venda as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
-END
-
-
-UNION
-
-SELECT
-'' as colecao,
-'' as vendedor,
-'E-COMMERCE' as filial,
-CASE
-	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
-	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
-	WHEN CAST(f.emissao as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
-END as periodo,
-'' as data_venda,
-SUM(fp.qtde) as itens,
-CAST(SUM(fp.valor + fp.desconto_item) as INT) as preco_original_total,
-CAST(SUM(f.valor_total/f.valor_sub_itens*fp.valor) as INT) as receita_total,
-CAST(SUM(c.preco1*fp.qtde) as INT) as custo_total
-FROM faturamento_prod fp
-INNER JOIN faturamento f on
-	f.nf_saida = fp.NF_SAIDA and
-	fp.filial = f.filial
-INNER JOIN produtos p on p.produto = fp.produto
-INNER JOIN produtos_precos c on
-	p.produto = c.produto and
-	c.codigo_tab_preco = 02 -- 02 custo
-WHERE
-fp.qtde > 0 and
-f.valor_sub_itens > 0 and
-fp.serie_nf IN (2,7) and
-f.filial = 'e-commerce' and
-(
-	CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) -- Semana Atual
-	OR CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) -- Semana Passada
-	OR CAST(f.emissao as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) -- Semana Ano Passado
-)
-GROUP BY
-CASE
-	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-7 as DATE) AND CAST(GETDATE()-1 as DATE) THEN 'WEEK'
-	WHEN CAST(f.emissao as DATE) BETWEEN CAST(GETDATE()-14 as DATE) AND CAST(GETDATE()-8 as DATE) THEN 'LW'
-	WHEN CAST(f.emissao as DATE) BETWEEN DATEADD(week,-52,CAST(GETDATE()-7 as DATE)) AND DATEADD(week,-52,CAST(GETDATE()-1 as DATE)) THEN 'LYW'
-END</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Daily Sales Sellers Output 2</name>
-    <type>GoogleSpreadsheetOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
-    <spreadsheetKey>17S5r8m700DAiTUKwXELXIjFqDhFGAIEw5zSccXXDBKY</spreadsheetKey>
-    <worksheetId>ouzctw0</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>688</xloc>
-      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
