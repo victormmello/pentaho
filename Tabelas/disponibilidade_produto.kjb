@@ -380,7 +380,11 @@
       <name>Drop Tables</name>
       <description />
       <type>SQL</type>
-      <sql>IF OBJECT_ID('disponibilidade_venda') IS NOT NULL
+      <sql>IF OBJECT_ID('disponibilidade_recebimento') IS NOT NULL
+  DROP TABLE disponibilidade_recebimento;
+IF OBJECT_ID('disponibilidade_recebimento_total') IS NOT NULL
+  DROP TABLE disponibilidade_recebimento_total;
+IF OBJECT_ID('disponibilidade_venda') IS NOT NULL
   DROP TABLE disponibilidade_venda;
 IF OBJECT_ID('disponibilidade_venda_total') IS NOT NULL
   DROP TABLE disponibilidade_venda_total;
@@ -488,6 +492,8 @@ CREATE TABLE dbo.bi_disponibilidade_produto_barra (
 	itens_30_total INT DEFAULT NULL,
 	quantidade_estoque_filial INT DEFAULT NULL,
 	quantidade_estoque_total INT DEFAULT NULL,
+	a_receber_prox_30_filial INT DEFAULT NULL,
+	a_receber_prox_30_total INT DEFAULT NULL,
 	peso_disponibilidade FLOAT DEFAULT NULL,
 	disponibilidade_filial FLOAT DEFAULT NULL,
 	disponibilidade_total FLOAT DEFAULT NULL,
@@ -505,6 +511,8 @@ CREATE TABLE dbo.bi_disponibilidade_produto_cor (
 	itens_30_total INT DEFAULT NULL,
 	quantidade_estoque_filial INT DEFAULT NULL,
 	quantidade_estoque_total INT DEFAULT NULL,
+	a_receber_prox_30_filial INT DEFAULT NULL,
+	a_receber_prox_30_total INT DEFAULT NULL,
 	peso_disponibilidade FLOAT DEFAULT NULL,
 	disponibilidade_filial FLOAT DEFAULT NULL,
 	disponibilidade_total FLOAT DEFAULT NULL,
@@ -529,6 +537,133 @@ TRUNCATE TABLE bi_disponibilidade_produto_cor;</sql>
       <sql>DECLARE
 	@days_from_current_date as INT;
 SET @days_from_current_date = 360;
+
+SELECT
+c.filial_a_entregar as filial,
+pb.codigo_barra,
+SUM(CASE pb.tamanho
+	WHEN 1 THEN cp.ce1
+	WHEN 2 THEN cp.ce2
+	WHEN 3 THEN cp.ce3
+	WHEN 4 THEN cp.ce4
+	WHEN 5 THEN cp.ce5
+	WHEN 6 THEN cp.ce6
+	WHEN 7 THEN cp.ce7
+	WHEN 8 THEN cp.ce8
+	WHEN 9 THEN cp.ce9
+	WHEN 10 THEN cp.ce10
+	WHEN 11 THEN cp.ce11
+	WHEN 12 THEN cp.ce12
+	WHEN 13 THEN cp.ce13
+	WHEN 14 THEN cp.ce14
+	WHEN 15 THEN cp.ce15
+	WHEN 16 THEN cp.ce16
+	WHEN 17 THEN cp.ce17
+	WHEN 18 THEN cp.ce18
+	WHEN 19 THEN cp.ce19
+	WHEN 20 THEN cp.ce20
+	WHEN 21 THEN cp.ce21
+	WHEN 22 THEN cp.ce22
+	WHEN 23 THEN cp.ce23
+	WHEN 24 THEN cp.ce24
+	WHEN 25 THEN cp.ce25
+	WHEN 26 THEN cp.ce26
+	WHEN 27 THEN cp.ce27
+	WHEN 28 THEN cp.ce28
+	WHEN 29 THEN cp.ce29
+	WHEN 30 THEN cp.ce30
+	WHEN 31 THEN cp.ce31
+	WHEN 32 THEN cp.ce32
+	WHEN 33 THEN cp.ce33
+	WHEN 34 THEN cp.ce34
+	WHEN 35 THEN cp.ce35
+	WHEN 36 THEN cp.ce36
+	WHEN 37 THEN cp.ce37
+	WHEN 38 THEN cp.ce38
+	WHEN 39 THEN cp.ce39
+	WHEN 40 THEN cp.ce40
+	WHEN 41 THEN cp.ce41
+	WHEN 42 THEN cp.ce42
+	WHEN 43 THEN cp.ce43
+	WHEN 44 THEN cp.ce44
+	WHEN 45 THEN cp.ce45
+	WHEN 46 THEN cp.ce46
+	WHEN 47 THEN cp.ce47
+	WHEN 48 THEN cp.ce48
+	ELSE 0
+END) as a_receber_prox_30
+INTO disponibilidade_recebimento
+FROM compras_produto cp
+INNER JOIN compras c on cp.pedido = c.pedido
+INNER JOIN produtos_barra pb on
+		cp.produto = pb.produto and
+		cp.cor_produto = pb.cor_produto
+WHERE
+cp.entrega BETWEEN GETDATE()-15 and GETDATE()+30
+and cp.qtde_entregar > 0
+and cp.QTDE_ENTREGUE = 0
+and CASE pb.tamanho
+	WHEN 1 THEN cp.ce1
+	WHEN 2 THEN cp.ce2
+	WHEN 3 THEN cp.ce3
+	WHEN 4 THEN cp.ce4
+	WHEN 5 THEN cp.ce5
+	WHEN 6 THEN cp.ce6
+	WHEN 7 THEN cp.ce7
+	WHEN 8 THEN cp.ce8
+	WHEN 9 THEN cp.ce9
+	WHEN 10 THEN cp.ce10
+	WHEN 11 THEN cp.ce11
+	WHEN 12 THEN cp.ce12
+	WHEN 13 THEN cp.ce13
+	WHEN 14 THEN cp.ce14
+	WHEN 15 THEN cp.ce15
+	WHEN 16 THEN cp.ce16
+	WHEN 17 THEN cp.ce17
+	WHEN 18 THEN cp.ce18
+	WHEN 19 THEN cp.ce19
+	WHEN 20 THEN cp.ce20
+	WHEN 21 THEN cp.ce21
+	WHEN 22 THEN cp.ce22
+	WHEN 23 THEN cp.ce23
+	WHEN 24 THEN cp.ce24
+	WHEN 25 THEN cp.ce25
+	WHEN 26 THEN cp.ce26
+	WHEN 27 THEN cp.ce27
+	WHEN 28 THEN cp.ce28
+	WHEN 29 THEN cp.ce29
+	WHEN 30 THEN cp.ce30
+	WHEN 31 THEN cp.ce31
+	WHEN 32 THEN cp.ce32
+	WHEN 33 THEN cp.ce33
+	WHEN 34 THEN cp.ce34
+	WHEN 35 THEN cp.ce35
+	WHEN 36 THEN cp.ce36
+	WHEN 37 THEN cp.ce37
+	WHEN 38 THEN cp.ce38
+	WHEN 39 THEN cp.ce39
+	WHEN 40 THEN cp.ce40
+	WHEN 41 THEN cp.ce41
+	WHEN 42 THEN cp.ce42
+	WHEN 43 THEN cp.ce43
+	WHEN 44 THEN cp.ce44
+	WHEN 45 THEN cp.ce45
+	WHEN 46 THEN cp.ce46
+	WHEN 47 THEN cp.ce47
+	WHEN 48 THEN cp.ce48
+	ELSE 0
+END > 0
+GROUP BY
+c.filial_a_entregar,
+pb.codigo_barra;
+
+SELECT
+r.codigo_barra,
+SUM(r.a_receber_prox_30) as a_receber_prox_30
+INTO disponibilidade_recebimento_total
+FROM disponibilidade_recebimento r
+GROUP BY
+r.codigo_barra;
 
 -- INSERT INTO disponibilidade_venda
 SELECT
@@ -878,7 +1013,8 @@ pb.grade,
 vct.itens_periodo_categoria_tamanho,
 dvt.itens_historico as itens_historico_total,
 dvt.itens_30 as itens_30_total,
-e.quantidade_estoque as quantidade_estoque_total
+e.quantidade_estoque as quantidade_estoque_total,
+drt.a_receber_prox_30 as a_receber_prox_30_total
 INTO disponibilidade_venda_produto_barra_categoria_tamanho
 FROM produtos_barra pb
 INNER JOIN produtos p on p.produto = pb.produto
@@ -906,6 +1042,7 @@ INNER JOIN disponibilidade_venda_categoria_tamanho vct on
 	vct.categoria = COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros') and
 	vct.grade = pb.grade
 LEFT JOIN disponibilidade_venda_total dvt on dvt.codigo_barra = pb.codigo_barra
+LEFT JOIN disponibilidade_recebimento_total drt on drt.codigo_barra = pb.codigo_barra
 LEFT JOIN disponibilidade_estoque e on e.codigo_barra = pb.codigo_barra;
 
 -- INSERT INTO disponibilidade_venda_produto_barra_categoria
@@ -932,6 +1069,8 @@ COALESCE(v.itens_30,0) as itens_30_filial,
 COALESCE(ct.itens_30_total,0) as itens_30_total,
 COALESCE(ef.quantidade_estoque,0) as quantidade_estoque_filial,
 COALESCE(ct.quantidade_estoque_total,0) as quantidade_estoque_total,
+COALESCE(r.a_receber_prox_30,0) as a_receber_prox_30_filial,
+COALESCE(ct.a_receber_prox_30_total,0) as a_receber_prox_30_total,
 COALESCE(ct.itens_periodo_categoria_tamanho/NULLIF(CAST(c.itens_periodo_categoria AS FLOAT),0),0) as peso_disponibilidade,
 CASE WHEN ef.quantidade_estoque > 0 THEN COALESCE(ct.itens_periodo_categoria_tamanho/NULLIF(CAST(c.itens_periodo_categoria AS FLOAT),0),0) ELSE 0 END as disponibilidade_filial,
 CASE WHEN ct.quantidade_estoque_total > 0 THEN COALESCE(ct.itens_periodo_categoria_tamanho/NULLIF(CAST(c.itens_periodo_categoria AS FLOAT),0),0) ELSE 0 END as disponibilidade_total
@@ -945,7 +1084,8 @@ LEFT JOIN disponibilidade_venda_produto_barra_categoria c on
 	c.produto = pb.produto and
 	c.cor_produto = pb.cor_produto
 LEFT JOIN disponibilidade_estoque_filial ef on ef.codigo_barra = pb.codigo_barra  and ef.filial = f.filial
-LEFT JOIN disponibilidade_venda v on v.codigo_barra = pb.codigo_barra and v.filial = f.filial;
+LEFT JOIN disponibilidade_venda v on v.codigo_barra = pb.codigo_barra and v.filial = f.filial
+LEFT JOIN disponibilidade_recebimento r on r.codigo_barra = pb.codigo_barra and r.filial = f.filial;
 
 INSERT INTO bi_disponibilidade_produto_cor
 SELECT
@@ -958,6 +1098,8 @@ SUM(dpb.itens_30_filial) as itens_30_filial,
 SUM(dpb.itens_30_total) as itens_30_total,
 SUM(dpb.quantidade_estoque_filial) as quantidade_estoque_filial,
 SUM(dpb.quantidade_estoque_total) as quantidade_estoque_total,
+SUM(dpb.a_receber_prox_30_filial) as a_receber_prox_30_filial,
+SUM(dpb.a_receber_prox_30_total) as a_receber_prox_30_total,
 SUM(dpb.peso_disponibilidade) as peso_disponibilidade,
 SUM(dpb.disponibilidade_filial) as disponibilidade_filial,
 SUM(dpb.disponibilidade_total) as disponibilidade_total
@@ -982,7 +1124,11 @@ dpb.cor_produto;</sql>
       <name>Drop Tables 2</name>
       <description />
       <type>SQL</type>
-      <sql>IF OBJECT_ID('disponibilidade_venda') IS NOT NULL
+      <sql>IF OBJECT_ID('disponibilidade_recebimento') IS NOT NULL
+  DROP TABLE disponibilidade_recebimento;
+IF OBJECT_ID('disponibilidade_recebimento_total') IS NOT NULL
+  DROP TABLE disponibilidade_recebimento_total;
+IF OBJECT_ID('disponibilidade_venda') IS NOT NULL
   DROP TABLE disponibilidade_venda;
 IF OBJECT_ID('disponibilidade_venda_total') IS NOT NULL
   DROP TABLE disponibilidade_venda_total;
