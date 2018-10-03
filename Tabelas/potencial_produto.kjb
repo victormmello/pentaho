@@ -814,19 +814,19 @@ FROM (
 
 	COALESCE(v.itens_historico/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_itens_historico,
 	COALESCE(v.receita_historico/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_receita_historico,
-	COALESCE(v.receita_historico-v.custo_historico/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_pc1_historico,
+	COALESCE((v.receita_historico-v.custo_historico)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_pc1_historico,
 
 	COALESCE(v.itens_360/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_itens_360,
 	COALESCE(v.receita_360/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_receita_360,
-	COALESCE(v.receita_360-v.custo_360/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_pc1_360,
+	COALESCE((v.receita_360-v.custo_360)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_pc1_360,
 
 	COALESCE(v.itens_90/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_itens_90,
 	COALESCE(v.receita_90/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_receita_90,
-	COALESCE(v.receita_90-v.custo_90/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_pc1_90,
+	COALESCE((v.receita_90-v.custo_90)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_pc1_90,
 
 	COALESCE(v.itens_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_itens_30,
 	COALESCE(v.receita_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_receita_30,
-	COALESCE(v.receita_30-v.custo_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30
+	COALESCE((v.receita_30-v.custo_30)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30
 	FROM (
 		SELECT
 		v.codigo_barra,
@@ -852,7 +852,7 @@ FROM (
 		SUM(CASE WHEN v.data_venda >= GETDATE()-90 THEN v.custo ELSE 0 END) as custo_90,
 
 		MIN(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.data_venda END) as primeira_venda_30,
-		MAX(CASE WHEN v.data_venda &gt;= GETDATE()-30 THEN v.data_venda END) as ultima_venda_30,
+		MAX(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.data_venda END) as ultima_venda_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.itens ELSE 0 END) as itens_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.receita ELSE 0 END) as receita_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.custo ELSE 0 END) as custo_30
@@ -933,19 +933,19 @@ FROM (
 
 	COALESCE(v.itens_historico/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_itens_historico,
 	COALESCE(v.receita_historico/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_receita_historico,
-	COALESCE(v.receita_historico-v.custo_historico/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_pc1_historico,
+	COALESCE((v.receita_historico-v.custo_historico)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_historico,v.ultima_venda_historico) END AS FLOAT),0),0) as potencial_pc1_historico,
 
 	COALESCE(v.itens_360/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_itens_360,
 	COALESCE(v.receita_360/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_receita_360,
-	COALESCE(v.receita_360-v.custo_360/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_pc1_360,
+	COALESCE((v.receita_360-v.custo_360)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_360,v.ultima_venda_360) END AS FLOAT),0),0) as potencial_pc1_360,
 
 	COALESCE(v.itens_90/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_itens_90,
 	COALESCE(v.receita_90/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_receita_90,
-	COALESCE(v.receita_90-v.custo_90/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_pc1_90,
+	COALESCE((v.receita_90-v.custo_90)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) &lt; 15 THEN 15 ELSE DATEDIFF(DAY,v.primeira_venda_90,v.ultima_venda_90) END AS FLOAT),0),0) as potencial_pc1_90,
 
 	COALESCE(v.itens_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_itens_30,
 	COALESCE(v.receita_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_receita_30,
-	COALESCE(v.receita_30-v.custo_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30
+	COALESCE((v.receita_30-v.custo_30)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30
 	FROM (
 		SELECT
 		v.produto,
