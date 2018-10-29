@@ -428,7 +428,9 @@ e.cor_produto,
 SUM(e.estoque_disponivel) as quantidade_estoque
 INTO bi_category_sales_estoque
 FROM w_estoque_disponivel_sku e
+INNER JOIN produtos p on p.produto = e.produto
 WHERE
+p.grupo_produto != 'GIFTCARD' and
 e.estoque_disponivel > 0 and
 e.filial in ('iguatemi campinas','santa ursula','mm dom pedro','premium outlet itupeva','santos praiamar','piracicaba shopping','jundiai shopping','e-commerce')
 GROUP BY
@@ -650,6 +652,7 @@ LEFT JOIN bi_category_sales_carteira cart on
 	cart.produto = pc.produto and
 	cart.cor_produto = pc.cor_produto
 WHERE
+p.grupo_produto != 'GIFTCARD' and
 COALESCE(e.quantidade_estoque,v.itens,r.quantidade_recebida,cart.quantidade_a_receber,0) > 0
 GROUP BY
 f.filial,

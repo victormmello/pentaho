@@ -846,6 +846,8 @@ INSERT INTO fator_base
 		cc.tipo_produto is null and
 		cc.cod_categoria is null
 	LEFT JOIN bi_categorizacao_cor cor on pc.desc_cor_produto = cor.cor
+	WHERE
+	p.grupo_produto != 'GIFTCARD'
 	GROUP BY
 	COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros'),
 	LTRIM(RTRIM(p.fabricante)),
@@ -954,6 +956,8 @@ INSERT INTO produtos_categorizados
 		cc.subgrupo_produto is null and
 		cc.tipo_produto is null and
 		cc.cod_categoria is null
+	WHERE
+	p.grupo_produto != 'GIFTCARD'
 	GROUP BY
 	p.produto;
 

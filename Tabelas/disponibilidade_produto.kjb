@@ -938,7 +938,6 @@ FROM disponibilidade_venda v
 GROUP BY
 v.codigo_barra;
 
--- INSERT INTO disponibilidade_estoque_filial
 SELECT
 e.filial,
 e.codigo_barra,
@@ -1000,11 +999,12 @@ LEFT JOIN bi_categorizacao_categoria cc on
 	cc.subgrupo_produto is null and
 	cc.tipo_produto is null and
 	cc.cod_categoria is null
+WHERE
+p.grupo_produto != 'GIFTCARD'
 GROUP BY
 COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros'),
 v.grade;
 
--- INSERT INTO disponibilidade_venda_produto_barra_categoria_tamanho
 SELECT
 pb.codigo_barra,
 pb.produto,
@@ -1043,9 +1043,10 @@ INNER JOIN disponibilidade_venda_categoria_tamanho vct on
 	vct.grade = pb.grade
 LEFT JOIN disponibilidade_venda_total dvt on dvt.codigo_barra = pb.codigo_barra
 LEFT JOIN disponibilidade_recebimento_total drt on drt.codigo_barra = pb.codigo_barra
-LEFT JOIN disponibilidade_estoque e on e.codigo_barra = pb.codigo_barra;
+LEFT JOIN disponibilidade_estoque e on e.codigo_barra = pb.codigo_barra
+WHERE
+p.grupo_produto != 'GIFTCARD';
 
--- INSERT INTO disponibilidade_venda_produto_barra_categoria
 SELECT
 ct.produto,
 ct.cor_produto,
@@ -1085,7 +1086,9 @@ LEFT JOIN disponibilidade_venda_produto_barra_categoria c on
 	c.cor_produto = pb.cor_produto
 LEFT JOIN disponibilidade_estoque_filial ef on ef.codigo_barra = pb.codigo_barra  and ef.filial = f.filial
 LEFT JOIN disponibilidade_venda v on v.codigo_barra = pb.codigo_barra and v.filial = f.filial
-LEFT JOIN disponibilidade_recebimento r on r.codigo_barra = pb.codigo_barra and r.filial = f.filial;
+LEFT JOIN disponibilidade_recebimento r on r.codigo_barra = pb.codigo_barra and r.filial = f.filial
+WHERE
+p.grupo_produto != 'GIFTCARD';
 
 INSERT INTO bi_disponibilidade_produto_cor
 SELECT

@@ -500,7 +500,9 @@ FROM (
 		v.ticket = vp.ticket and
 		v.data_venda = vp.data_venda
 	INNER JOIN filiais f on f.cod_filial = vp.codigo_filial
+	INNER JOIN produtos p on p.produto = vp.produto
 	WHERE
+	p.grupo_produto != 'GIFTCARD' and
 	vp.qtde > 0 and
 	vp.data_venda >= GETDATE()-3*360
 	GROUP BY
@@ -678,7 +680,9 @@ FROM (
 	INNER JOIN produtos_barra pb on
 		fp.produto = pb.produto and
 		fp.cor_produto = pb.cor_produto
+	INNER JOIN produtos p on p.produto = fp.produto
 	WHERE
+	p.grupo_produto != 'GIFTCARD' and
 	CASE pb.tamanho
 		WHEN 1 THEN fp.f1
 		WHEN 2 THEN fp.f2
