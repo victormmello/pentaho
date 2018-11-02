@@ -5,12 +5,26 @@ from fb_config import APP_SECRET
 from fb_config import ACCESS_TOKEN
 from fb_config import FB_ACCOUND_ID
 
+from facebook_business import adobjects
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business import adobjects
 from facebook_business.adobjects.campaign import Campaign
 from facebook_business.adobjects.adset import AdSet
 
+def get_by_name(objs, searched_name, match='full'):
+	for obj in objs:
+		obj.remote_read(fields=['name'])
+
+		is_match = False
+		if match == 'full':
+			is_match = obj['name'] == searched_name
+		elif match == 'start':
+			is_match = obj['name'].startswith(searched_name)
+			# print(obj['name'] + '\n' + searched_name)
+			# print('\n')
+
+		if is_match:
+			return obj
 
 FacebookAdsApi.init(APP_ID, APP_SECRET, ACCESS_TOKEN)
 my_account = AdAccount(FB_ACCOUND_ID)
@@ -19,57 +33,60 @@ campaign = campaigns[1].remote_read(fields=['objective', 'name'])
 print('connect test OK!')
 
 ad_sets = campaign.get_ad_sets()
-ad_set = campaign.get_ad_sets()[0]
+# ad_set = campaign.get_ad_sets()[1]
+ad_set = get_by_name(ad_sets, 'Leve2Pague1BolinhaAzul_All_LookAlikeCompradores1Perc_All_Feed_Single_LeveMaisPorMenos', match='start')
+
+
 
 # === READ ADSET ===
-# ad_set_all_fields = [
-# 	'account_id',
-# 	'adlabels',
-# 	'adset_schedule',
-# 	'attribution_spec',
-# 	'bid_amount',
-# 	'bid_info',
-# 	'bid_strategy',
-# 	'billing_event',
-# 	'budget_remaining',
-# 	'campaign',
-# 	'campaign_id',
-# 	'configured_status',
-# 	'created_time',
-# 	'creative_sequence',
-# 	'daily_budget',
-# 	'daily_min_spend_target',
-# 	'daily_spend_cap',
-# 	'destination_type',
-# 	'effective_status',
-# 	'end_time',
-# 	'frequency_control_specs',
-# 	'instagram_actor_id',
-# 	'is_dynamic_creative',
-# 	'issues_info',
-# 	'lifetime_budget',
-# 	'lifetime_imps',
-# 	'lifetime_min_spend_target',
-# 	'lifetime_spend_cap',
-# 	'name',
-# 	'optimization_goal',
-# 	'pacing_type',
-# 	'promoted_object',
-# 	'recommendations',
-# 	'recurring_budget_semantics',
-# 	'rf_prediction_id',
-# 	'source_adset',
-# 	'source_adset_id',
-# 	'start_time',
-# 	'status',
-# 	'targeting',
-# 	'time_based_ad_rotation_id_blocks',
-# 	'time_based_ad_rotation_intervals',
-# 	'updated_time',
-# 	'use_new_app_click',
-# ]
-# yay = ad_set.remote_read(fields=ad_set_all_fields)
-# print(yay)
+ad_set_all_fields = [
+	'account_id',
+	'adlabels',
+	'adset_schedule',
+	'attribution_spec',
+	'bid_amount',
+	'bid_info',
+	'bid_strategy',
+	'billing_event',
+	'budget_remaining',
+	'campaign',
+	'campaign_id',
+	'configured_status',
+	'created_time',
+	'creative_sequence',
+	'daily_budget',
+	'daily_min_spend_target',
+	'daily_spend_cap',
+	'destination_type',
+	'effective_status',
+	'end_time',
+	'frequency_control_specs',
+	'instagram_actor_id',
+	'is_dynamic_creative',
+	'issues_info',
+	'lifetime_budget',
+	'lifetime_imps',
+	'lifetime_min_spend_target',
+	'lifetime_spend_cap',
+	'name',
+	'optimization_goal',
+	'pacing_type',
+	'promoted_object',
+	'recommendations',
+	'recurring_budget_semantics',
+	'rf_prediction_id',
+	'source_adset',
+	'source_adset_id',
+	'start_time',
+	'status',
+	'targeting',
+	'time_based_ad_rotation_id_blocks',
+	'time_based_ad_rotation_intervals',
+	'updated_time',
+	'use_new_app_click',
+]
+yay = ad_set.remote_read(fields=ad_set_all_fields)
+print(yay)
 
 # === CREATE CAMPAIGN ===
 # campaign = adobjects.campaign.Campaign(parent_id = my_account.get_id_assured())
@@ -87,16 +104,16 @@ ad_set = campaign.get_ad_sets()[0]
 # 	# "name": "DeuaLouca_lookAlike_Conversao_Imagem_Facebook",
 # 	'campaign_id': campaign['id'],
 
-#   	"account_id": "1205933616131610",
+# 	"account_id": "1205933616131610",
 # 	"attribution_spec": [
-# 	  {
-# 	      "event_type": "CLICK_THROUGH",
-# 	      "window_days": 7
-# 	  },
-# 	  {
-# 	      "event_type": "VIEW_THROUGH",
-# 	      "window_days": 1
-# 	  }
+# 		{
+# 			"event_type": "CLICK_THROUGH",
+# 			"window_days": 7
+# 		},
+# 		{
+# 			"event_type": "VIEW_THROUGH",
+# 			"window_days": 1
+# 		}
 # 	],
 # 	"bid_amount": 650,
 # 	"bid_strategy": "LOWEST_COST_WITH_BID_CAP",
@@ -114,49 +131,49 @@ ad_set = campaign.get_ad_sets()[0]
 # 	  "standard"
 # 	],
 # 	"promoted_object": {
-# 	  "custom_event_type": "ADD_TO_CART",
-# 	  "pixel_id": "1908760826085113"
+# 		"custom_event_type": "ADD_TO_CART",
+# 		"pixel_id": "1908760826085113"
 # 	},
 # 	"recurring_budget_semantics": True,
 # 	"start_time": "2018-09-13T13:17:50-0700",
 # 	"status": "PAUSED",
 # 	"targeting": {
-# 	  "age_max": 65,
-# 	  "age_min": 25,
-# 	  "custom_audiences": [
-# 	      {
-# 	          "id": "23843051904060085",
-# 	          "name": "Emails-Set2017-Set2018-compradores"
-# 	      }
-# 	  ],
-# 	  "device_platforms": [
-# 	      "mobile",
-# 	      "desktop"
-# 	  ],
-# 	  "facebook_positions": [
-# 	      "feed"
-# 	  ],
-# 	  "genders": [
-# 	      2
-# 	  ],
-# 	  "geo_locations": {
-# 	      "countries": [
-# 	          "BR"
-# 	      ],
-# 	      "location_types": [
-# 	          "home",
-# 	          "recent"
-# 	      ]
-# 	  },
-# 	  "instagram_positions": [
-# 	      "stream",
-# 	      "story"
-# 	  ],
-# 	  "publisher_platforms": [
-# 	      "facebook",
-# 	      "instagram"
-# 	  ],
-# 	  "targeting_optimization": "expansion_all"
+# 		"age_max": 65,
+# 		"age_min": 25,
+# 		"custom_audiences": [
+# 			{
+# 				"id": "23843051904060085",
+# 				"name": "Emails-Set2017-Set2018-compradores"
+# 			}
+# 		],
+# 			"device_platforms": [
+# 			"mobile",
+# 			"desktop"
+# 		],
+# 			"facebook_positions": [
+# 			"feed"
+# 		],
+# 		"genders": [
+# 			2
+# 		],
+# 		"geo_locations": {
+# 			"countries": [
+# 				"BR"
+# 			],
+# 				"location_types": [
+# 				"home",
+# 				"recent"
+# 			]
+# 			},
+# 				"instagram_positions": [
+# 				"stream",
+# 				"story"
+# 			],
+# 				"publisher_platforms": [
+# 				"facebook",
+# 				"instagram"
+# 			],
+# 		  "targeting_optimization": "expansion_all"
 # 	},
 # 	"use_new_app_click": False
 # }
@@ -256,6 +273,22 @@ new_ad_creative_params = {
 	},
 }
 
-my_account.create_ad_creative(params=new_ad_creative_params)
+# my_account.create_ad_creative(params=new_ad_creative_params)
+
+# === CREATE AD ===
+# params = {
+#   'name': 'My Ad',
+#   'adset_id': ad_set['id'],
+#   'creative': {'creative_id': ad_creative['id']},
+#   'status': 'PAUSED',
+# }
+
+# new_ad = my_account.create_ad(
+#   params=params,
+# )
+
+# print(new_ad)
+
+
 
 import pdb; pdb.set_trace()
