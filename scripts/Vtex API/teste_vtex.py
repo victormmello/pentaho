@@ -56,17 +56,22 @@ params = {
 	"O":"OrderByNameASC"
 }
 
-columns = [
-	"productId",
-	"productReference",
-	"link",
-	"itemId",
-	"imageUrl",
-]
+# columns = [
+# 	"productId",
+# 	"productReference",
+# 	"link",
+# 	"itemId",
+# 	"imageUrl",
+# ]
+
+product_categories = []
+product_info = []
+product_images = []
+product_items = []
 
 with open('catalog_output.csv', 'wb') as f:
-	csv_file = unicodecsv.DictWriter(f,fieldnames=columns, delimiter=";",encoding='latin-1')
-	csv_file.writeheader()
+	# csv_file = unicodecsv.DictWriter(f,fieldnames=columns, delimiter=";",encoding='latin-1')
+	# csv_file.writeheader()
 
 	list_set = list()
 
@@ -93,14 +98,48 @@ with open('catalog_output.csv', 'wb') as f:
 
 			json_response = json.loads(response.text)
 			
-			for item in json_response:
-				row = {
-					"productId":item["productId"],
-					"productReference":item["productReference"],
-					"link":item["link"],
-					"itemId":item["items"][0]["itemId"],
-					"imageUrl":item["items"][0]["images"][0]["imageUrl"],
-				}
-				list_set.append(row)
+			for product in json_response:
+				product_id = product["productId"]
+				produto = product["productReference"]
+
+				original_price = 0
+				sale_price = 0
+				for item in product["items"]:
+					item_original_price = item["sellers"][0]["commertialOffer"]["ListPrice"]
+					item_sale_price = item["sellers"][0]["commertialOffer"]["Price"]
+					original_price = max(original_price,item_original_price)
+					sale_price = max(sale_price,item_sale_price)
+
+					product_items.append({
+						"item_id":item["itemId"],
+						"ean":item["ean"],
+						"image_url":item["images"][0]["imageUrl"]
+					})
+
+				product_info.append({
+					"product_id":product_id,
+					"produto":produto,
+					"link":product["link"],
+					"category_id":product["categoryId"],
+					"category_name":product["categories"][0],
+					"original_price":original_price,
+					"sale_price":sale_price
+				})
+
+				# Product Categories:
+				for i in range(0,len(product["categories"])):
+					product_categories.append({
+						"product_id":product_id,
+						"produto":produto,
+						"category_id":product["categoriesIds"][i],
+						"category_name":product["categories"][i]
+					})
+
+				print(product_items)
+				print(product_info)
+				print(product_categories)
+				raise Exception
+
+				
 	# print(list_set)
-	csv_file.writerows(list_set)
+	# csv_file.writerows(list_set)
