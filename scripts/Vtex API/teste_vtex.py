@@ -1,31 +1,9 @@
-import requests, json, dateutil.relativedelta, unicodecsv, pyodbc
+from database.database_connection import DatabaseConnection
+import requests, json, dateutil.relativedelta
 from datetime import datetime
 
 api_connection_file = open("api_connection.json", 'rb')
 api_connection_config = json.load(api_connection_file)
-
-database_connection_file = open("database_connection.json", 'rb')
-database_connection_config = json.load(database_connection_file)
-
-cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER=%s;DATABASE=%s;UID=%s;PWD=%s' % (
-	database_connection_config['server'],
-	database_connection_config['database'],
-	database_connection_config['username'],
-	database_connection_config['password']
-	))
-cnxn.setdecoding(pyodbc.SQL_CHAR, encoding='utf-8')
-cnxn.setdecoding(pyodbc.SQL_WCHAR, encoding='utf-8')
-cnxn.setencoding(encoding='utf-8')
-cursor = cnxn.cursor()
-
-# cursor.execute("DROP TABLE #bi_disponivel_vtex_temp;")
-# cnxn.commit()
-
-
-# row = cursor.fetchone()
-# while row:
-#     print(row[0])
-#     row = cursor.fetchone()
 
 # API DOCS > consultar https://documenter.getpostman.com/view/845/vtex-catalog-api/Hs44
 
@@ -56,22 +34,12 @@ params = {
 	"O":"OrderByNameASC"
 }
 
-# columns = [
-# 	"productId",
-# 	"productReference",
-# 	"link",
-# 	"itemId",
-# 	"imageUrl",
-# ]
-
 product_categories = []
-product_info = []
-product_images = []
 product_items = []
+product_images = []
+products = []
 
 with open('catalog_output.csv', 'wb') as f:
-	# csv_file = unicodecsv.DictWriter(f,fieldnames=columns, delimiter=";",encoding='latin-1')
-	# csv_file.writeheader()
 
 	list_set = list()
 
@@ -110,36 +78,72 @@ with open('catalog_output.csv', 'wb') as f:
 					original_price = max(original_price,item_original_price)
 					sale_price = max(sale_price,item_sale_price)
 
-					product_items.append({
-						"item_id":item["itemId"],
-						"ean":item["ean"],
-						"image_url":item["images"][0]["imageUrl"]
-					})
+					product_items.append([
+						item["itemId"], #"item_id"
+						item["ean"], #"ean"
+						item["images"][0]["imageUrl"] #"image_url"
+					])
 
-				product_info.append({
-					"product_id":product_id,
-					"produto":produto,
-					"link":product["link"],
-					"category_id":product["categoryId"],
-					"category_name":product["categories"][0],
-					"original_price":original_price,
-					"sale_price":sale_price
-				})
+					for image in item["images"]:
+						product_images.append([
+							item["ean"], #"ean"
+							image["imageUrl"] #"image_url"
+						])
+
+				products.append([
+					product_id, #"product_id"
+					produto, #"produto"
+					product["link"], #"link"
+					product["categoryId"], #"category_id"
+					product["categories"][0], #"category_name"
+					original_price, #"original_price"
+					sale_price #"sale_price"
+				])
 
 				# Product Categories:
 				for i in range(0,len(product["categories"])):
-					product_categories.append({
-						"product_id":product_id,
-						"produto":produto,
-						"category_id":product["categoriesIds"][i],
-						"category_name":product["categories"][i]
-					})
+					product_categories.append([
+						product_id, #"product_id"
+						produto, #"produto"
+						product["categoriesIds"][i], #"category_id"
+						product["categories"][i] #"category_name"
+					])
 
-				print(product_items)
-				print(product_info)
-				print(product_categories)
-				raise Exception
+print('Connecting to database...',end='')
+dc = DatabaseConnection()
+print('Done!')
 
-				
-	# print(list_set)
-	# csv_file.writerows(list_set)
+print('Inserting into tables...',end='')
+
+dc.execute('TRUNCATE TABLE bi_vtex_product_items;')
+dc.insert('bi_vtex_product_items',product_items)
+
+dc.execute('TRUNCATE TABLE bi_vtex_products;')
+dc.insert('bi_vtex_products',products)
+
+dc.execute('TRUNCATE TABLE bi_vtex_product_categories;')
+dc.insert('bi_vtex_product_categories',product_categories)
+
+dc.execute('TRUNCATE TABLE bi_vtex_product_item_images;')
+dc.insert('bi_vtex_product_item_images',product_images)
+
+print('Done!')
+
+print('Transforming item_images into product_color_images...',end='')
+
+dc.execute('TRUNCATE TABLE bi_vtex_product_images')
+dc.execute("""
+	INSERT INTO bi_vtex_product_images
+	SELECT DISTINCT
+	pb.produto,
+	pb.cor_produto,
+	pc.desc_cor_produto as cor,
+	pii.image_url
+	FROM bi_vtex_product_item_images pii
+	INNER JOIN produtos_barra pb on pb.codigo_barra = pii.ean
+	INNER JOIN produto_cores pc on
+		pc.produto = pb.produto and
+		pb.cor_produto = pc.cor_produto;
+""")
+
+print('Done!')
