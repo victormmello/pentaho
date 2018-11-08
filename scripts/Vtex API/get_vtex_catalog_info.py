@@ -120,7 +120,6 @@ print('Done!')
 
 print('Inserting into tables...',end='')
 
-print(product_items)
 dc.execute('TRUNCATE TABLE bi_vtex_product_items;')
 dc.insert('bi_vtex_product_items',product_items)
 
@@ -140,16 +139,21 @@ print('Transforming item_images into product_color_images...',end='')
 dc.execute('TRUNCATE TABLE bi_vtex_product_images')
 dc.execute("""
 	INSERT INTO bi_vtex_product_images
-	SELECT DISTINCT
-	pb.produto,
-	pb.cor_produto,
-	pc.desc_cor_produto as cor,
-	pii.image_url
-	FROM bi_vtex_product_item_images pii
-	INNER JOIN produtos_barra pb on pb.codigo_barra = pii.ean
-	INNER JOIN produto_cores pc on
-		pc.produto = pb.produto and
-		pb.cor_produto = pc.cor_produto;
+	SELECT
+	*,
+	ROW_NUMBER() OVER(PARTITION BY produto, cor_produto ORDER BY image_url) as numero
+	FROM (
+		SELECT DISTINCT
+		pb.produto,
+		pb.cor_produto,
+		pc.desc_cor_produto as cor,
+		pii.image_url
+		FROM bi_vtex_product_item_images pii
+		INNER JOIN produtos_barra pb on pb.codigo_barra = pii.ean
+		INNER JOIN produto_cores pc on
+			pc.produto = pb.produto and
+			pb.cor_produto = pc.cor_produto
+	) t;
 """)
 
 print('Done!')
