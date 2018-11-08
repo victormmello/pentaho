@@ -39,6 +39,8 @@ product_items = []
 product_images = []
 products = []
 
+product_ids = {}
+
 with open('catalog_output.csv', 'wb') as f:
 
 	list_set = list()
@@ -69,45 +71,48 @@ with open('catalog_output.csv', 'wb') as f:
 			for product in json_response:
 				product_id = product["productId"]
 				produto = product["productReference"]
+				# Não considera um produto que apareceu 2x na resposta:
+				if not product_id in product_ids:
+					product_ids[product_id] = True
+					original_price = 0
+					sale_price = 0
+					for item in product["items"]:
+						item_original_price = item["sellers"][0]["commertialOffer"]["ListPrice"]
+						item_sale_price = item["sellers"][0]["commertialOffer"]["Price"]
+						original_price = max(original_price,item_original_price)
+						sale_price = max(sale_price,item_sale_price)
 
-				original_price = 0
-				sale_price = 0
-				for item in product["items"]:
-					item_original_price = item["sellers"][0]["commertialOffer"]["ListPrice"]
-					item_sale_price = item["sellers"][0]["commertialOffer"]["Price"]
-					original_price = max(original_price,item_original_price)
-					sale_price = max(sale_price,item_sale_price)
-
-					product_items.append([
-						item["itemId"], #"item_id"
-						item["ean"], #"ean"
-						item["images"][0]["imageUrl"] #"image_url"
-					])
-
-					for image in item["images"]:
-						product_images.append([
+						product_items.append([
+							item["itemId"], #"item_id"
 							item["ean"], #"ean"
-							image["imageUrl"] #"image_url"
+							item["sellers"][0]["commertialOffer"]["AvailableQuantity"], #"stock_quantity"
+							item["images"][0]["imageUrl"] #"image_url",
 						])
 
-				products.append([
-					product_id, #"product_id"
-					produto, #"produto"
-					product["link"], #"link"
-					product["categoryId"], #"category_id"
-					product["categories"][0], #"category_name"
-					original_price, #"original_price"
-					sale_price #"sale_price"
-				])
+						for image in item["images"]:
+							product_images.append([
+								item["ean"], #"ean"
+								image["imageUrl"] #"image_url"
+							])
 
-				# Product Categories:
-				for i in range(0,len(product["categories"])):
-					product_categories.append([
+					products.append([
 						product_id, #"product_id"
 						produto, #"produto"
-						product["categoriesIds"][i], #"category_id"
-						product["categories"][i] #"category_name"
+						product["link"], #"link"
+						product["categoryId"], #"category_id"
+						product["categories"][0], #"category_name"
+						original_price, #"original_price"
+						sale_price #"sale_price"
 					])
+
+					# Product Categories:
+					for i in range(0,len(product["categories"])):
+						product_categories.append([
+							product_id, #"product_id"
+							produto, #"produto"
+							product["categoriesIds"][i], #"category_id"
+							product["categories"][i] #"category_name"
+						])
 
 print('Connecting to database...',end='')
 dc = DatabaseConnection()
@@ -115,6 +120,7 @@ print('Done!')
 
 print('Inserting into tables...',end='')
 
+print(product_items)
 dc.execute('TRUNCATE TABLE bi_vtex_product_items;')
 dc.insert('bi_vtex_product_items',product_items)
 

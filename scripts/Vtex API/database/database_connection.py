@@ -45,7 +45,7 @@ class DatabaseConnection(object):
 			query = """INSERT INTO %s VALUES
 			%s
 			""" % (table,'\n,'.join(insert_list))
-			print(query)
+			# print(query)
 			self.execute(query)
 
 			
