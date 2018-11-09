@@ -118,42 +118,42 @@ print('Connecting to database...',end='')
 dc = DatabaseConnection()
 print('Done!')
 
-print('Inserting into tables...',end='')
+# print('Inserting into tables...',end='')
 
-dc.execute('TRUNCATE TABLE bi_vtex_product_items;')
-dc.insert('bi_vtex_product_items',product_items)
+# dc.execute('TRUNCATE TABLE bi_vtex_product_items;')
+# dc.insert('bi_vtex_product_items',product_items)
 
-dc.execute('TRUNCATE TABLE bi_vtex_products;')
-dc.insert('bi_vtex_products',products)
+# dc.execute('TRUNCATE TABLE bi_vtex_products;')
+# dc.insert('bi_vtex_products',products)
 
-dc.execute('TRUNCATE TABLE bi_vtex_product_categories;')
-dc.insert('bi_vtex_product_categories',product_categories)
+# dc.execute('TRUNCATE TABLE bi_vtex_product_categories;')
+# dc.insert('bi_vtex_product_categories',product_categories)
 
-dc.execute('TRUNCATE TABLE bi_vtex_product_item_images;')
-dc.insert('bi_vtex_product_item_images',product_images)
+# dc.execute('TRUNCATE TABLE bi_vtex_product_item_images;')
+# dc.insert('bi_vtex_product_item_images',product_images)
 
-print('Done!')
+# print('Done!')
 
-print('Transforming item_images into product_color_images...',end='')
+# print('Transforming item_images into product_color_images...',end='')
 
-dc.execute('TRUNCATE TABLE bi_vtex_product_images')
-dc.execute("""
-	INSERT INTO bi_vtex_product_images
-	SELECT
-	*,
-	ROW_NUMBER() OVER(PARTITION BY produto, cor_produto ORDER BY image_url) as numero
-	FROM (
-		SELECT DISTINCT
-		pb.produto,
-		pb.cor_produto,
-		pc.desc_cor_produto as cor,
-		pii.image_url
-		FROM bi_vtex_product_item_images pii
-		INNER JOIN produtos_barra pb on pb.codigo_barra = pii.ean
-		INNER JOIN produto_cores pc on
-			pc.produto = pb.produto and
-			pb.cor_produto = pc.cor_produto
-	) t;
-""")
+# dc.execute('TRUNCATE TABLE bi_vtex_product_images')
+# dc.execute("""
+# 	INSERT INTO bi_vtex_product_images
+# 	SELECT
+# 	*,
+# 	ROW_NUMBER() OVER(PARTITION BY produto, cor_produto ORDER BY image_url) as numero
+# 	FROM (
+# 		SELECT DISTINCT
+# 		pb.produto,
+# 		pb.cor_produto,
+# 		pc.desc_cor_produto as cor,
+# 		pii.image_url
+# 		FROM bi_vtex_product_item_images pii
+# 		INNER JOIN produtos_barra pb on pb.codigo_barra = pii.ean
+# 		INNER JOIN produto_cores pc on
+# 			pc.produto = pb.produto and
+# 			pb.cor_produto = pc.cor_produto
+# 	) t;
+# """)
 
-print('Done!')
+# print('Done!')
