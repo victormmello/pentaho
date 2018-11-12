@@ -46,16 +46,17 @@ with open('catalog_output.csv', 'wb') as f:
 	list_set = list()
 
 	result_range = 50
-	results_from = 1
-	results_to = result_range
+	results_from = 0
+	results_to = result_range-1
 	response_status_code = 206
 
 	c=1
 	while response_status_code == 206:
-		print(u"iteração: %d" % c)
+		print(u"iteração: %d" % c, end='')
 		c+=1
 		params["_from"] = results_from
 		params["_to"] = results_to
+		print(" (%s -> %s)" % (results_from ,results_to))
 		response = requests.request("GET", url, headers=api_connection_config, params=params)
 
 		response_status_code = response.status_code
@@ -71,6 +72,10 @@ with open('catalog_output.csv', 'wb') as f:
 			for product in json_response:
 				product_id = product["productId"]
 				produto = product["productReference"]
+
+				# if product_id == '530414':
+				# 	raise Exception(product)
+
 				# Não considera um produto que apareceu 2x na resposta:
 				if not product_id in product_ids:
 					product_ids[product_id] = True
@@ -88,6 +93,9 @@ with open('catalog_output.csv', 'wb') as f:
 							item["sellers"][0]["commertialOffer"]["AvailableQuantity"], #"stock_quantity"
 							item["images"][0]["imageUrl"] #"image_url",
 						])
+
+						# if item["ean"] == '35020650485PP':
+						# 	raise Exception(item)
 
 						for image in item["images"]:
 							product_images.append([
@@ -118,17 +126,21 @@ print('Connecting to database...',end='')
 dc = DatabaseConnection()
 print('Done!')
 
-print('Inserting into tables...',end='')
+print('Inserting into tables...')
 
+print('	bi_vtex_product_items')
 dc.execute('TRUNCATE TABLE bi_vtex_product_items;')
 dc.insert('bi_vtex_product_items',product_items)
 
+print('	bi_vtex_products')
 dc.execute('TRUNCATE TABLE bi_vtex_products;')
 dc.insert('bi_vtex_products',products)
 
+print('	bi_vtex_product_categories')
 dc.execute('TRUNCATE TABLE bi_vtex_product_categories;')
 dc.insert('bi_vtex_product_categories',product_categories)
 
+print('	bi_vtex_product_item_images')
 dc.execute('TRUNCATE TABLE bi_vtex_product_item_images;')
 dc.insert('bi_vtex_product_item_images',product_images)
 
