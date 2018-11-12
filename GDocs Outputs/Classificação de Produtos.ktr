@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>Classificação de Produtos</name>
+    <description />
+    <extended_description />
+    <trans_version />
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>/</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <trans-log-table>
+        <connection />
+        <schema />
+        <table />
+        <size_limit_lines />
+        <interval />
+        <timeout_days />
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>TRANSNAME</id>
+          <enabled>Y</enabled>
+          <name>TRANSNAME</name>
+        </field>
+        <field>
+          <id>STATUS</id>
+          <enabled>Y</enabled>
+          <name>STATUS</name>
+        </field>
+        <field>
+          <id>LINES_READ</id>
+          <enabled>Y</enabled>
+          <name>LINES_READ</name>
+          <subject />
+        </field>
+        <field>
+          <id>LINES_WRITTEN</id>
+          <enabled>Y</enabled>
+          <name>LINES_WRITTEN</name>
+          <subject />
+        </field>
+        <field>
+          <id>LINES_UPDATED</id>
+          <enabled>Y</enabled>
+          <name>LINES_UPDATED</name>
+          <subject />
+        </field>
+        <field>
+          <id>LINES_INPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_INPUT</name>
+          <subject />
+        </field>
+        <field>
+          <id>LINES_OUTPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_OUTPUT</name>
+          <subject />
+        </field>
+        <field>
+          <id>LINES_REJECTED</id>
+          <enabled>Y</enabled>
+          <name>LINES_REJECTED</name>
+          <subject />
+        </field>
+        <field>
+          <id>ERRORS</id>
+          <enabled>Y</enabled>
+          <name>ERRORS</name>
+        </field>
+        <field>
+          <id>STARTDATE</id>
+          <enabled>Y</enabled>
+          <name>STARTDATE</name>
+        </field>
+        <field>
+          <id>ENDDATE</id>
+          <enabled>Y</enabled>
+          <name>ENDDATE</name>
+        </field>
+        <field>
+          <id>LOGDATE</id>
+          <enabled>Y</enabled>
+          <name>LOGDATE</name>
+        </field>
+        <field>
+          <id>DEPDATE</id>
+          <enabled>Y</enabled>
+          <name>DEPDATE</name>
+        </field>
+        <field>
+          <id>REPLAYDATE</id>
+          <enabled>Y</enabled>
+          <name>REPLAYDATE</name>
+        </field>
+        <field>
+          <id>LOG_FIELD</id>
+          <enabled>Y</enabled>
+          <name>LOG_FIELD</name>
+        </field>
+        <field>
+          <id>EXECUTING_SERVER</id>
+          <enabled>N</enabled>
+          <name>EXECUTING_SERVER</name>
+        </field>
+        <field>
+          <id>EXECUTING_USER</id>
+          <enabled>N</enabled>
+          <name>EXECUTING_USER</name>
+        </field>
+        <field>
+          <id>CLIENT</id>
+          <enabled>N</enabled>
+          <name>CLIENT</name>
+        </field>
+      </trans-log-table>
+      <perf-log-table>
+        <connection />
+        <schema />
+        <table />
+        <interval />
+        <timeout_days />
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>SEQ_NR</id>
+          <enabled>Y</enabled>
+          <name>SEQ_NR</name>
+        </field>
+        <field>
+          <id>LOGDATE</id>
+          <enabled>Y</enabled>
+          <name>LOGDATE</name>
+        </field>
+        <field>
+          <id>TRANSNAME</id>
+          <enabled>Y</enabled>
+          <name>TRANSNAME</name>
+        </field>
+        <field>
+          <id>STEPNAME</id>
+          <enabled>Y</enabled>
+          <name>STEPNAME</name>
+        </field>
+        <field>
+          <id>STEP_COPY</id>
+          <enabled>Y</enabled>
+          <name>STEP_COPY</name>
+        </field>
+        <field>
+          <id>LINES_READ</id>
+          <enabled>Y</enabled>
+          <name>LINES_READ</name>
+        </field>
+        <field>
+          <id>LINES_WRITTEN</id>
+          <enabled>Y</enabled>
+          <name>LINES_WRITTEN</name>
+        </field>
+        <field>
+          <id>LINES_UPDATED</id>
+          <enabled>Y</enabled>
+          <name>LINES_UPDATED</name>
+        </field>
+        <field>
+          <id>LINES_INPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_INPUT</name>
+        </field>
+        <field>
+          <id>LINES_OUTPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_OUTPUT</name>
+        </field>
+        <field>
+          <id>LINES_REJECTED</id>
+          <enabled>Y</enabled>
+          <name>LINES_REJECTED</name>
+        </field>
+        <field>
+          <id>ERRORS</id>
+          <enabled>Y</enabled>
+          <name>ERRORS</name>
+        </field>
+        <field>
+          <id>INPUT_BUFFER_ROWS</id>
+          <enabled>Y</enabled>
+          <name>INPUT_BUFFER_ROWS</name>
+        </field>
+        <field>
+          <id>OUTPUT_BUFFER_ROWS</id>
+          <enabled>Y</enabled>
+          <name>OUTPUT_BUFFER_ROWS</name>
+        </field>
+      </perf-log-table>
+      <channel-log-table>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>LOG_DATE</id>
+          <enabled>Y</enabled>
+          <name>LOG_DATE</name>
+        </field>
+        <field>
+          <id>LOGGING_OBJECT_TYPE</id>
+          <enabled>Y</enabled>
+          <name>LOGGING_OBJECT_TYPE</name>
+        </field>
+        <field>
+          <id>OBJECT_NAME</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_NAME</name>
+        </field>
+        <field>
+          <id>OBJECT_COPY</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_COPY</name>
+        </field>
+        <field>
+          <id>REPOSITORY_DIRECTORY</id>
+          <enabled>Y</enabled>
+          <name>REPOSITORY_DIRECTORY</name>
+        </field>
+        <field>
+          <id>FILENAME</id>
+          <enabled>Y</enabled>
+          <name>FILENAME</name>
+        </field>
+        <field>
+          <id>OBJECT_ID</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_ID</name>
+        </field>
+        <field>
+          <id>OBJECT_REVISION</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_REVISION</name>
+        </field>
+        <field>
+          <id>PARENT_CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>PARENT_CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>ROOT_CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>ROOT_CHANNEL_ID</name>
+        </field>
+      </channel-log-table>
+      <step-log-table>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>LOG_DATE</id>
+          <enabled>Y</enabled>
+          <name>LOG_DATE</name>
+        </field>
+        <field>
+          <id>TRANSNAME</id>
+          <enabled>Y</enabled>
+          <name>TRANSNAME</name>
+        </field>
+        <field>
+          <id>STEPNAME</id>
+          <enabled>Y</enabled>
+          <name>STEPNAME</name>
+        </field>
+        <field>
+          <id>STEP_COPY</id>
+          <enabled>Y</enabled>
+          <name>STEP_COPY</name>
+        </field>
+        <field>
+          <id>LINES_READ</id>
+          <enabled>Y</enabled>
+          <name>LINES_READ</name>
+        </field>
+        <field>
+          <id>LINES_WRITTEN</id>
+          <enabled>Y</enabled>
+          <name>LINES_WRITTEN</name>
+        </field>
+        <field>
+          <id>LINES_UPDATED</id>
+          <enabled>Y</enabled>
+          <name>LINES_UPDATED</name>
+        </field>
+        <field>
+          <id>LINES_INPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_INPUT</name>
+        </field>
+        <field>
+          <id>LINES_OUTPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_OUTPUT</name>
+        </field>
+        <field>
+          <id>LINES_REJECTED</id>
+          <enabled>Y</enabled>
+          <name>LINES_REJECTED</name>
+        </field>
+        <field>
+          <id>ERRORS</id>
+          <enabled>Y</enabled>
+          <name>ERRORS</name>
+        </field>
+        <field>
+          <id>LOG_FIELD</id>
+          <enabled>N</enabled>
+          <name>LOG_FIELD</name>
+        </field>
+      </step-log-table>
+      <metrics-log-table>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>LOG_DATE</id>
+          <enabled>Y</enabled>
+          <name>LOG_DATE</name>
+        </field>
+        <field>
+          <id>METRICS_DATE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_DATE</name>
+        </field>
+        <field>
+          <id>METRICS_CODE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_CODE</name>
+        </field>
+        <field>
+          <id>METRICS_DESCRIPTION</id>
+          <enabled>Y</enabled>
+          <name>METRICS_DESCRIPTION</name>
+        </field>
+        <field>
+          <id>METRICS_SUBJECT</id>
+          <enabled>Y</enabled>
+          <name>METRICS_SUBJECT</name>
+        </field>
+        <field>
+          <id>METRICS_TYPE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_TYPE</name>
+        </field>
+        <field>
+          <id>METRICS_VALUE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_VALUE</name>
+        </field>
+      </metrics-log-table>
+    </log>
+    <maxdate>
+      <connection />
+      <table />
+      <field />
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file />
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+    <created_user>-</created_user>
+    <created_date>2018/08/03 16:28:52.032</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2018/08/03 16:28:52.032</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>Linx</name>
+    <server>${LINX_HOST}</server>
+    <type>MSSQLNATIVE</type>
+    <access>Native</access>
+    <database>${LINX_DATABASE}</database>
+    <port>1433</port>
+    <username>${LINX_USERNAME}</username>
+    <password>${LINX_PASSWORD}</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQLUseIntegratedSecurity</code>
+        <attribute>false</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>1433</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <order>
+    <hop>
+      <from>Grupo e Subgrupo</from>
+      <to>Grupo e Subgrupo Output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Categoria e Subcategoria</from>
+      <to>Categoria e Subcategoria Output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tipo</from>
+      <to>Tipo Output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Fabricante</from>
+      <to>Fabricante Output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cor</from>
+      <to>Cor Output</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <step>
+    <name>Grupo e Subgrupo Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>oy5rovi</worksheetId>
+    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBSY4TQ+LBDVJN1piXDGWUooYXSuaQIDAMNQgIIDgCuFRPQm4y3AZMCwhWdm6jFTbH/Bqsh01ZAHgfdtFhqlVCRGvte1TYvd6C2hScSOQWr6B3vbXq6ba+TSXXElStkbvVSJHfs/Dpz18NZFtuUsQ/hMkdSl9/VrJaV1NNq8KtqR3sHbi+R9b/ZJLI3EGN8voKyfT90lz0xBC4ASouudsv6iFWLgugRBd4RsP6cajnp6AI1c9wX8mC0gvL954k/ydT9dkFYqxmU1tBhgP6oRiNEVbt1oJ6x9iorrSHhHpuu9AN9F/oKg7j3zN6N+sPfXkRzhxURdP4py6pB7M/lw5Xur60uRT2gfGJrU37bz/fdBsIefB9OdKhmqhmpkx6bBahHPShyv7flXmD6JPbWR9TpJ+JTy3PIrvOpz7IW7awI4+HV2N40ZT/aDIeGg77gXuc1gBsSnS2EoLSgtcijj4Zx0r8JdVCdAmZEIBeA0YqR9dbfUscz0Edn/pvQ+McDlns9AfEojfwMe0B9ulYxrYaIgHSGrG7PTOYgCIACOtdykXv8C4WNp5OioBk33fTbwy+hAMoXluGFG5CXAUpCVaoCpi+XDeVAClsxk6ovgVv1ERt8IiNfIomxdfjsKAL70Ol9CP9b1AvkFlOR8+rZFsq128z9smCT5TgsqtNSEu/TABqtdnBtaIXyfcC+p/N75YeMprKVrWaxrnv8EH4OwdwJck9//m0gIWVyU64lDRCXlCVJu3i1nfL98DmG5Au0GF5xaYDnu3CMYFg2WQo+Jy8Vl08PrgNmKHS1eUSNdtHc5HpBUxG4EU2AzmCNDjePJzKatxCWHNH2pw978f0M5ESph85w02UhAGd+ozngs6H+AaalPW7e+ReCtL/vci425s9taqz+NYBRCYhfZ9I7VeGhItfCXfI6wS8cA+egYQNzr76S2AR7+9/HQ+vVNvIs1T0flxpuZLJU3pZM9yWrydBtSxaE8lwzcdbs5onnuXk9mD/K5rmu6DV463PomTpEn9nBoonsczA8MqPWedfbbIF+aiLFy41vPyPrUeOJRv2XzDkNFFgQu6cD6f3CB+M2QGYnw66YROyrSwXPFLTOeJaqOm9TSjBHw+fhjkwPxI6hwoR2uqQCGP0jipLEzfxIAJsy3vtkAk1TNpODO7Qx5YGbCUe3VNhSqHlnPKNxnaXZMaPxfY7S0dXd2/bfumuylGLAmSmsLvBJKbwc+9kIzMD4wITAJBgUrDgMCGgUABBT4BLHqOgujwy0xsZeMetpIwPo67wQUmnOAKD/ScFJZtXxCV03x94T+Z9sCAwGGoA==</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>16</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Grupo e Subgrupo</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT DISTINCT 
+t.concatenado,
+t.grupo_produto,
+t.subgrupo_produto,
+COALESCE(c.classificacao,'Outros') as classificacao
+FROM (
+	SELECT DISTINCT
+	RTRIM(p.grupo_produto) + '-' + RTRIM(p.subgrupo_produto) as concatenado,
+	RTRIM(p.grupo_produto) as grupo_produto,
+	RTRIM(p.subgrupo_produto) as subgrupo_produto
+	FROM produtos p
+	WHERE
+	p.grupo_produto like '[_]%'
+	and p.data_cadastramento >= GETDATE()-360
+	
+	UNION
+
+	SELECT
+	RTRIM(ps.grupo_produto) + '-' + RTRIM(ps.subgrupo_produto) as concatenado,
+	RTRIM(ps.grupo_produto) as grupo_produto,
+	RTRIM(ps.subgrupo_produto) as subgrupo_produto
+	FROM produtos_subgrupo ps
+	WHERE
+	ps.data_para_transferencia >= GETDATE()-360
+) t
+LEFT JOIN (
+	SELECT '_BERMUDA' as grupo_produto, 'Bottom' as classificacao
+	UNION SELECT '_CALCA' as grupo_produto, 'Bottom' as classificacao
+	UNION SELECT '_SHORT' as grupo_produto, 'Bottom' as classificacao
+	UNION SELECT '_SAIA' as grupo_produto, 'Bottom' as classificacao
+	UNION SELECT '_BLUSA' as grupo_produto, 'Top' as classificacao
+	UNION SELECT '_BODY' as grupo_produto, 'Top' as classificacao
+	UNION SELECT '_CAMISA' as grupo_produto, 'Top' as classificacao
+	UNION SELECT '_CAMISETA' as grupo_produto, 'Top' as classificacao
+	UNION SELECT '_CHEMISIE' as grupo_produto, 'Top' as classificacao
+	UNION SELECT '_TUNICA' as grupo_produto, 'Top' as classificacao
+	UNION SELECT 'BLUSA' as grupo_produto, 'Top' as classificacao
+	UNION SELECT '_CASACO' as grupo_produto, 'Casacos e Jaquetas' as classificacao
+	UNION SELECT '_BLAZER' as grupo_produto, 'Casacos e Jaquetas' as classificacao
+	UNION SELECT '_COLETE' as grupo_produto, 'Casacos e Jaquetas' as classificacao
+	UNION SELECT '_JAQUETA' as grupo_produto, 'Casacos e Jaquetas' as classificacao
+	UNION SELECT '_VESTIDO' as grupo_produto, 'Top+Bottom' as classificacao
+	UNION SELECT '_MACACAO' as grupo_produto, 'Top+Bottom' as classificacao
+	UNION SELECT 'VESTIDO' as grupo_produto, 'Top+Bottom' as classificacao
+	UNION SELECT 'CALCADOS' as grupo_produto, 'Calcados' as classificacao
+) c on c.grupo_produto = t.grupo_produto
+ORDER BY t.concatenado</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>16</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Categoria e Subcategoria Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>olmvrcw</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Categoria e Subcategoria</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT
+MAX(RTRIM(cat.categoria_produto)) as categoria_produto,
+p.cod_categoria,
+MIN(p.cod_subcategoria) as cod_subcategoria
+FROM produtos p
+INNER JOIN produtos_categoria cat on cat.cod_categoria = p.cod_categoria
+INNER JOIN produtos_subcategoria sub_cat on
+	sub_cat.cod_subcategoria = p.cod_subcategoria and
+	sub_cat.cod_categoria = p.cod_categoria
+WHERE
+p.grupo_produto like '[_]%'
+and p.data_cadastramento >= GETDATE()-360
+and p.cod_categoria IN ('01','02','03','BD')
+GROUP BY
+p.cod_categoria</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tipo Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>o8tajxf</worksheetId>
+    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBROKcmWU3GDxDCVrX0YQWqjCZxP/QIDAMNQgIIDgLasgdpCTuxG3dlbaogrmotUDsddbAFqrpIwiq3IM/3rUOLhwlNacGNCoJuUhFe/EZgztU+jjkYrbX2rXeb2KWa7qzQW3QOG7Rt+DpRs2zuefQDKpMz0e3q1Q5gBG+hESgbFtiYg296KcpZanSnrFdFfSFDplK/reQTw1D5pVi6LjQWtKFK9iIlkZlHRzyLc1waYWVE0vGyNKkcIdyVta5B4N353eDWGCLufB2xflZVnxPUvARLvXKFWO3yKmkoBosp2vPrVJ/jsFpRXjgbE5mmDLXPplnq0JmV8YJbYwc8DS3SzxzLQSbiVr3MQ9DC/NuOZmUGhCrON8+H8AtvQuVlWhJJEPX2ryHM7R8z8/zUMhEov2mQU3VJQvf9UMY5eddBx/W8D8Lt2HbkZSJxDqu0GypsZG5ANLzDsf1W76r9PABMjpy7bN52z5dyqSl7+uPrt3QfPUxtlxob+Tj7nbhFgLOuWdkiL+AQxVuGbnNjWkR/4tHAvHWoYGvW+i2iI9JCo3NXCacjazT2WXPOy4VS6JEihbbn7yO46vhRLwu4Q66hrZGStPW89XwWmsaTitgp9M8pPS/N+/t/NTUi8kTIvsSKqmpfoR37pGT+Gy/xGo7/aK1VcGbheUnUCKZT9OLPLlvwH8DzIuQom2dFuyUZSWaBvncKIQ9Ur2kI0ToTYnB2aBD0rPN17yXGrlGMzrJaR7/NMltoB57ebTGk03siZEQgYVApyjuS4xsQB3GdeRivBO0ldQHh2Q5FAhajisPTq9AXsQeVN+OXjrSgnMUrdWjxN+0gaaHZWqlNV+olm+aHkLXEVTMSrgSAjn7kxZ5oKtN/JtPe+oe/AZs9Qrjn/CDTACYUAcrV6ikbzAcerfPVq3MBRHvf0o44KVND+V9hj0F515q15Gx/Qu+HoQe37IcubBFmMH9YFpN6ncsuk3h88SBddx13BwMtclU2UPjGq7/YzZQ9nqUv03hoXr3r9KvfytF4Noxu0GHx8dR+QGapXZlqCMQ6No21tLaOk/H9Q3Q23AV3L8VTPjLOuXtA1rN7LftmAVLrwxnrqGKF5PANf5rYTDkHRd3z855GanFis0KUH+f41waXjbA+PJ7WLxkM2+DVlsa0JTzeut5LB4FjdrJl1ijmGwhdupJ5AqUfUvSi+6Wy7Y7xJrLMjMG1o82J1eVElMAi4mIGS/rMgMD4wITAJBgUrDgMCGgUABBTiMV6QhfPeqpatNRvdI1t3VoG63QQUkNVhuCqA8An6D8oldNpqDszxb2MCAwGGoA==</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tipo</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT DISTINCT 
+t.tipo_produto,
+CASE WHEN t.tipo_produto IN ('Crepe','Viscose','Linho','Jeans','Malha','Couro','Sarja','Alfaiataria','Sued','Tricot','Chiffon') THEN t.tipo_produto ELSE '' END as grupo_tipo
+FROM (
+	SELECT DISTINCT
+	RTRIM(p.tipo_produto) as tipo_produto
+	FROM produtos p
+	WHERE
+	p.grupo_produto like '[_]%'
+	and p.data_cadastramento >= GETDATE()-360
+	
+	UNION
+
+	SELECT DISTINCT
+	RTRIM(pt.tipo_produto) as tipo_produto
+	FROM produtos_tipos pt
+	WHERE
+	pt.data_para_transferencia >= GETDATE()-360
+) t
+ORDER BY 
+t.tipo_produto</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fabricante Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>oy65dqp</worksheetId>
+    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBSmhR6f/Y7Mq6uVbvusy3Vt0zfEVQIDAMNQgIIDgNr/vDMEuzHXlTUrU1c+ec7YKGbGTFVWqGCEkEi+Mf3lV/YiTvhLgW+7F4pkmGndLwVyVIHa+ew1AA6ReIFJVZNiwVDlazprn5LLrxq2IzVOHQNYxm4HWa5NhlGyzw1SeqWBiR991IF7G+dCHOAFr9hPoprWgfaX5Xf2THnaTIf5Gx8hsLb/y1HTWB/XtRE0GKaH12lypjXfddgfr9Yp1HqlQFBxXAKNH6PaLLCdF+S0J/ciZxaqGm9e8P4ZNo9opgA2ODeE5fsqHtMn9bLdMW7JQHq+zW/Ll1Sja8KFQCF3RKAylPWn9Zatkoa3lIPGQPx9+0QiFAonqb2dKmtBEkYVoA/rJ24J8xYhuxn0d1H5ekEoUP1I6R43mAicStw2EBCpOl9JJUBhROIIAxLLZL9XLdV05/ZAreqkZYHuUepmRI3iTkHlYn6j+E33c+wwKiL9kn/GdwNeHtqq0oShXqdhEZnknKSd8+f38wqtV/2RkLPHV1YffdGk8Kv9sU/JBsICP5gOe09O5u5bnudps3lQE1tl7zwnu1NNS6siOlwTNv6Usp3+JmYujhAze/UnKyHdxgaxzXcEvPecY9RyCQoywGU0JZDDbqX+fqjFAxHZgS+YGML7aUGhKjs9YzlIHRiBv66XJXkWSh59VMcfV27XhMz2NuPuiHX5IZaWsnrh2leMCcuq13o/5JoDKSlMj9rm1YP9TNfvIMPahdOSJzuIhMPpT4HNfJ8npzIDh+EcNkCb6A2NJJsejYqV//mxmwLRntMhhbo8x3Z13Y/FUGJs25Nfe4Ic0a683vo6QWGwpBKFandNY4MUqUCcg8W9OD2Iqsa2UYNxaONmZuXa6n8yGCaaks2iDmmFTmGPmHFOc7mzdAz2m/6Cp4AcOkBhU1xO4rUmFv6gnwArK8rEo8jW6sbW5fIhufMPopO+1m8YbtfmwrEpqZrWJ16f6F4pXsb7nO52XG+yMx6rCDjuQQQVp6hYtlu3+AkQAagm6X/j0n8IxcS1QC4XMu4Cinh3fjpVJyh4EtOZvwrdQE2YbsopsM2FvrhzmaaB/G6H6qedygYFpne0uOD1/+1I2b9qCu/nZlInp0vDNnLuRKAXk9e90LT3e67oz+Mzitxcd4fOzjmOQHw0Ev3Fmw4qW8DIeGYyfycCuLXJ09jPdk/ffR6xFs09tF8BHlpKSxNxhlXGMD4wITAJBgUrDgMCGgUABBTf2W44PyhMjBCJj6HgsuSqCj98mwQU+pfgZMzd3oeim1EC945MzWCCvPsCAwGGoA==</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>16</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fabricante</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT DISTINCT fabricante FROM (
+	SELECT DISTINCT
+	RTRIM(p.fabricante) as fabricante
+	FROM produtos p
+	WHERE
+	p.grupo_produto like '[_]%'
+	and p.data_cadastramento >= GETDATE()-360
+	
+	UNION
+
+	SELECT
+	RTRIM(f.fornecedor) as fabricante
+	FROM fornecedores f
+	WHERE
+	f.data_para_transferencia >= GETDATE()-360
+	and f.tipo = 'PRODUTOS ACABADOS'
+) t
+ORDER BY t.fabricante</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>16</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Cor Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>ote9pft</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Cor</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT DISTINCT 
+t.desc_cor,
+t.cor_produto,
+CASE
+	WHEN t.desc_cor like '%estamp%' THEN 'Estampado'
+	WHEN t.desc_cor like '%list%' THEN 'Listrado'
+	ELSE 'Liso'
+END as padronagem
+FROM (
+	SELECT DISTINCT
+	RTRIM(pc.desc_cor_produto) as desc_cor,
+	pc.cor_produto
+	FROM produto_cores pc
+	INNER JOIN produtos p on p.produto = pc.produto
+	WHERE
+	p.grupo_produto like '[_]%'
+	and p.data_cadastramento >= GETDATE()-360
+	and pc.desc_cor_produto not like '%cancelad%'
+	
+	UNION
+
+	SELECT
+	RTRIM(cb.desc_cor) as desc_cor,
+	cb.cor as cor_produto
+	FROM cores_basicas cb
+	WHERE
+	cb.data_para_transferencia >= GETDATE()-360
+) t
+ORDER BY t.desc_cor;</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+  </step_error_handling>
+  <slave-step-copy-partition-distribution>
+  </slave-step-copy-partition-distribution>
+  <slave_transformation>N</slave_transformation>
+</transformation>
