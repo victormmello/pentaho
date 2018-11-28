@@ -438,7 +438,7 @@ FROM (
 			FROM bi_disponibilidade_produto_cor dpc
 			WHERE
 			dpc.disponibilidade_filial > 0 and
-			dpc.disponibilidade_filial &lt; 0.5
+			dpc.disponibilidade_filial &lt; 0.3
 			GROUP BY
 			dpc.produto,
 			dpc.cor_produto
