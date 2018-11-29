@@ -410,6 +410,7 @@ IF OBJECT_ID('bi_potencial_produto_cor') IS NOT NULL
 	itens FLOAT NOT NULL,
 	receita FLOAT NOT NULL,
 	custo FLOAT NOT NULL,
+	receita_sorting FLOAT NOT NULL,
 	PRIMARY KEY (codigo_barra,data_venda)
 );
 TRUNCATE TABLE potencial_venda_produto_barra_dia;
@@ -431,6 +432,7 @@ CREATE TABLE dbo.bi_potencial_produto_barra (
 	potencial_itens_30 FLOAT NOT NULL,
 	potencial_receita_30 FLOAT NOT NULL,
 	potencial_pc1_30 FLOAT NOT NULL,
+	potencial_receita_sorting FLOAT NOT NULL,
 	potencial_itens FLOAT NOT NULL,
 	potencial_receita FLOAT NOT NULL,
 	potencial_pc1 FLOAT NOT NULL,
@@ -453,6 +455,7 @@ CREATE TABLE dbo.bi_potencial_produto_cor (
 	potencial_itens_30 FLOAT NOT NULL,
 	potencial_receita_30 FLOAT NOT NULL,
 	potencial_pc1_30 FLOAT NOT NULL,
+	potencial_receita_sorting FLOAT NOT NULL,
 	potencial_itens FLOAT NOT NULL,
 	potencial_receita FLOAT NOT NULL,
 	potencial_pc1 FLOAT NOT NULL,
@@ -483,9 +486,11 @@ MAX(v.cor_produto) as cor_produto,
 MAX(v.tamanho) as tamanho,
 SUM(v.itens) as itens,
 SUM(v.receita) as receita,
-SUM(v.custo) as custo
+SUM(v.custo) as custo,
+SUM(CASE WHEN sourcing = 'online' then 2 else 1 end * v.receita) as receita_sorting
 FROM (
 	SELECT
+	'offline' as sourcing,
 	CAST(vp.data_venda as DATE) as data_venda,
 	vp.codigo_barra,
 	MAX(vp.produto) as produto,
@@ -511,8 +516,32 @@ FROM (
 
 	UNION
 
+	SELECT
+	'online' as sourcing,
+	CAST(created_at as DATE) as data_venda,
+	ean as codigo_barra,
+	MAX(pb.produto) as produto,
+	MAX(pb.cor_produto) as cor_produto,
+	MAX(pb.tamanho) as tamanho,
+	SUM(voi.quantity) as itens,
+	SUM(voi.price*voi.quantity) as receita,
+	SUM(c.preco1*voi.quantity) as custo
+	FROM bi_vtex_order_items voi
+	INNER JOIN produtos_barra pb on pb.codigo_barra = voi.ean
+	INNER JOIN produtos_precos c on
+		c.produto = pb.produto and
+		c.codigo_tab_preco = '02'
+	WHERE
+	CAST(created_at as DATE) BETWEEN CAST(GETDATE()-1-30 as DATE) and CAST(GETDATE()-1 as DATE)
+	GROUP BY
+	CAST(created_at as DATE),
+	ean
+
+	UNION
+
 	-- Venda E-COMMMERCE:
 	SELECT
+	'online' as sourcing,
 	CAST(f.emissao as DATE) as data_venda,
 	pb.codigo_barra,
 	MAX(pb.produto) as produto,
@@ -737,7 +766,7 @@ FROM (
 	f.valor_sub_itens > 0 and
 	fp.serie_nf IN (2,7) and
 	f.filial = 'e-commerce' and
-	f.emissao >= GETDATE()-3*360
+	f.emissao BETWEEN GETDATE()-3*360 and GETDATE()-1-30
 	GROUP BY
 	CAST(f.emissao as DATE),
 	pb.codigo_barra
@@ -830,7 +859,9 @@ FROM (
 
 	COALESCE(v.itens_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_itens_30,
 	COALESCE(v.receita_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_receita_30,
-	COALESCE((v.receita_30-v.custo_30)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30
+	COALESCE((v.receita_30-v.custo_30)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30,
+
+	COALESCE(v.receita_sorting/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_receita_sorting
 	FROM (
 		SELECT
 		v.codigo_barra,
@@ -859,8 +890,9 @@ FROM (
 		MAX(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.data_venda END) as ultima_venda_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.itens ELSE 0 END) as itens_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.receita ELSE 0 END) as receita_30,
-		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.custo ELSE 0 END) as custo_30
+		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.custo ELSE 0 END) as custo_30,
 
+		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.receita_sorting ELSE 0 END) as receita_sorting
 		FROM potencial_venda_produto_barra_dia v
 		GROUP BY
 		v.codigo_barra
@@ -949,7 +981,9 @@ FROM (
 
 	COALESCE(v.itens_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_itens_30,
 	COALESCE(v.receita_30/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_receita_30,
-	COALESCE((v.receita_30-v.custo_30)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30
+	COALESCE((v.receita_30-v.custo_30)/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_pc1_30,
+	
+	COALESCE(v.receita_sorting/NULLIF(CAST(CASE WHEN DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) &lt; 7 THEN 7 ELSE DATEDIFF(DAY,v.primeira_venda_30,v.ultima_venda_30) END AS FLOAT),0),0) as potencial_receita_sorting
 	FROM (
 		SELECT
 		v.produto,
@@ -976,8 +1010,9 @@ FROM (
 		MAX(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.data_venda END) as ultima_venda_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.itens ELSE 0 END) as itens_30,
 		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.receita ELSE 0 END) as receita_30,
-		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.custo ELSE 0 END) as custo_30
+		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.custo ELSE 0 END) as custo_30,
 
+		SUM(CASE WHEN v.data_venda >= GETDATE()-30 THEN v.receita_sorting ELSE 0 END) as receita_sorting
 		FROM potencial_venda_produto_barra_dia v
 		GROUP BY
 		v.produto,
