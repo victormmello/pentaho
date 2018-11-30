@@ -523,7 +523,52 @@
     </hop>
   </order>
   <step>
-    <name>Grupo e Subgrupo Output</name>
+    <name>Categoria e Subcategoria</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT
+MAX(RTRIM(cat.categoria_produto)) as categoria_produto,
+p.cod_categoria,
+MIN(p.cod_subcategoria) as cod_subcategoria
+FROM produtos p
+INNER JOIN produtos_categoria cat on cat.cod_categoria = p.cod_categoria
+INNER JOIN produtos_subcategoria sub_cat on
+	sub_cat.cod_subcategoria = p.cod_subcategoria and
+	sub_cat.cod_categoria = p.cod_categoria
+WHERE
+(p.grupo_produto like '[_]%' or p.grupo_produto = 'CALCADOS')
+and p.data_cadastramento >= GETDATE()-360
+and p.cod_categoria IN ('01','02','03','BD')
+GROUP BY
+p.cod_categoria</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Categoria e Subcategoria Output</name>
     <type>GoogleSpreadsheetOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -535,8 +580,8 @@
     </partitioning>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
-    <worksheetId>oy5rovi</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <worksheetId>olmvrcw</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -546,6 +591,173 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Cor</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT DISTINCT 
+t.desc_cor,
+t.cor_produto,
+CASE
+	WHEN t.desc_cor like '%estamp%' THEN 'Estampado'
+	WHEN t.desc_cor like '%list%' THEN 'Listrado'
+	ELSE 'Liso'
+END as padronagem
+FROM (
+	SELECT DISTINCT
+	RTRIM(pc.desc_cor_produto) as desc_cor,
+	pc.cor_produto
+	FROM produto_cores pc
+	INNER JOIN produtos p on p.produto = pc.produto
+	WHERE
+	(
+		(p.grupo_produto like '[_]%' or p.grupo_produto = 'CALCADOS')
+		and p.data_cadastramento >= GETDATE()-360
+		and pc.desc_cor_produto not like '%cancelad%'
+	) OR pc.desc_cor_produto IN ('ESTAMPADO ROSE')
+	
+	UNION
+
+	SELECT
+	RTRIM(cb.desc_cor) as desc_cor,
+	cb.cor as cor_produto
+	FROM cores_basicas cb
+	WHERE
+	cb.data_para_transferencia >= GETDATE()-360
+	OR cb.desc_cor IN ('LISTRADO CINZA')
+) t
+ORDER BY t.desc_cor;</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Cor Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>ote9pft</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fabricante</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <sql>SELECT DISTINCT fabricante FROM (
+	SELECT DISTINCT
+	RTRIM(p.fabricante) as fabricante
+	FROM produtos p
+	WHERE
+	(p.grupo_produto like '[_]%' or p.grupo_produto = 'CALCADOS')
+	and p.data_cadastramento >= GETDATE()-360
+	
+	UNION
+
+	SELECT
+	RTRIM(f.fornecedor) as fabricante
+	FROM fornecedores f
+	WHERE
+	f.inativo = 0 and
+	f.data_para_transferencia >= GETDATE()-360
+	and f.tipo = 'PRODUTOS ACABADOS'
+) t
+ORDER BY t.fabricante</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>16</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fabricante Output</name>
+    <type>GoogleSpreadsheetOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
+    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
+    <worksheetId>oy65dqp</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
       <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
@@ -575,7 +787,7 @@ FROM (
 	RTRIM(p.subgrupo_produto) as subgrupo_produto
 	FROM produtos p
 	WHERE
-	p.grupo_produto like '[_]%'
+	(p.grupo_produto like '[_]%' or p.grupo_produto = 'CALCADOS')
 	and p.data_cadastramento >= GETDATE()-360
 	
 	UNION
@@ -635,7 +847,7 @@ ORDER BY t.concatenado</sql>
     </GUI>
   </step>
   <step>
-    <name>Categoria e Subcategoria Output</name>
+    <name>Grupo e Subgrupo Output</name>
     <type>GoogleSpreadsheetOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -647,8 +859,8 @@ ORDER BY t.concatenado</sql>
     </partitioning>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
-    <worksheetId>olmvrcw</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <worksheetId>oy5rovi</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -658,80 +870,7 @@ ORDER BY t.concatenado</sql>
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Categoria e Subcategoria</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT
-MAX(RTRIM(cat.categoria_produto)) as categoria_produto,
-p.cod_categoria,
-MIN(p.cod_subcategoria) as cod_subcategoria
-FROM produtos p
-INNER JOIN produtos_categoria cat on cat.cod_categoria = p.cod_categoria
-INNER JOIN produtos_subcategoria sub_cat on
-	sub_cat.cod_subcategoria = p.cod_subcategoria and
-	sub_cat.cod_categoria = p.cod_categoria
-WHERE
-p.grupo_produto like '[_]%'
-and p.data_cadastramento >= GETDATE()-360
-and p.cod_categoria IN ('01','02','03','BD')
-GROUP BY
-p.cod_categoria</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Tipo Output</name>
-    <type>GoogleSpreadsheetOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
-    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
-    <worksheetId>o8tajxf</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>368</xloc>
-      <yloc>192</yloc>
+      <yloc>16</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -755,7 +894,7 @@ FROM (
 	RTRIM(p.tipo_produto) as tipo_produto
 	FROM produtos p
 	WHERE
-	p.grupo_produto like '[_]%'
+	(p.grupo_produto like '[_]%' or p.grupo_produto = 'CALCADOS')
 	and p.data_cadastramento >= GETDATE()-360
 	
 	UNION
@@ -791,7 +930,7 @@ t.tipo_produto</sql>
     </GUI>
   </step>
   <step>
-    <name>Fabricante Output</name>
+    <name>Tipo Output</name>
     <type>GoogleSpreadsheetOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -803,8 +942,8 @@ t.tipo_produto</sql>
     </partitioning>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
     <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
-    <worksheetId>oy65dqp</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <worksheetId>o8tajxf</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -813,147 +952,8 @@ t.tipo_produto</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>16</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Fabricante</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT DISTINCT fabricante FROM (
-	SELECT DISTINCT
-	RTRIM(p.fabricante) as fabricante
-	FROM produtos p
-	WHERE
-	p.grupo_produto like '[_]%'
-	and p.data_cadastramento >= GETDATE()-360
-	
-	UNION
-
-	SELECT
-	RTRIM(f.fornecedor) as fabricante
-	FROM fornecedores f
-	WHERE
-	f.inativo = 0 and
-	f.data_para_transferencia >= GETDATE()-360
-	and f.tipo = 'PRODUTOS ACABADOS'
-) t
-ORDER BY t.fabricante</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>16</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Cor Output</name>
-    <type>GoogleSpreadsheetOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
-    <spreadsheetKey>1jjKcPJzvDOykbpnyc6c27RYqf0z8YD3BV8Htnj1mHdI</spreadsheetKey>
-    <worksheetId>ote9pft</worksheetId>
-    <privateKeyStore>MIIJqwIBAzCCCWQGCSqGSIb3DQEHAaCCCVUEgglRMIIJTTCCBXEGCSqGSIb3DQEHAaCCBWIEggVeMIIFWjCCBVYGCyqGSIb3DQEMCgECoIIE+zCCBPcwKQYKKoZIhvcNAQwBAzAbBBTm0HVktWITkNfGXhQ6ZFhRTb1IeAIDAMNQBIIEyDmDLkUNm9tKEqm7hj+i7lq+CEmKdYndA/OCaSyEtJ0HoBqs1JX3nqurFm9Xp7aHI75s7ZPCdx5oc31ny2zsZmp9LZxK+Bw/bPw4+O8L6fPyMifbSWHy7qhfwt7C+qEvTJIARfVSFE8L7jitL7ihVjhhdvH6JDTpgwVitH2/RmyOu/Eia8bTfxi9dEZaR2JlYKglTF8d74LS5OZgqjAEKPW7qsHZOq952ScFxsVP+BZwtaB4gQ6npeX/lzGlHPpR93QxUTxgUCVZzTmiDq0tCqHwHCCgolJZnTMdKTPIdey8wq/dQ2QAl7r/RIGioQ2PODjfY3hVEgS+Tb9i4l2ANGUvRs1ApA2E+A7yaQciNuK68i2XAcydfwsv3WWPezJV1MkuSe8CYxCyUsFn4XFtthzb6W7+xuFHnxtoMTjWSJMfBx8Xsw+kHD4TBKLlXHuiStmbjna8gvpIYHN12sHqEIrFmkuODZvO5zpDny4SnZcxTruotuoc8CDaz/PCowD04H54td1hjmEMaJJ/2Zt1gOEeOiw0SV1k3CvMZ7uVQdjBtnimosc1NX+wvnqD/FMJNDKQSzKvzOn/wjTmchwNjam437LTwKe7nQQqM++24lxvRPzoAQWC6Zo/VSif4ZBwaRMPexAd9S2pi2HWKQP1c9vyflqY3IGuY5Ll5WyQp8L/hQpfRR7tDHoNyZJUv4GBUxOCOIZ3Zwz014X6oZtUM5Ohu1w3rikjEIZ8len28LyyrSgRZFn77Zn99x54nTm9hCzn8MlQ2nzoFl5FexXbYmasnmMVxMm4lBHNEOHzefxxQoo/K9NT28GHU//WYJRq2uOznf5rstPX6pVTq4/yIct2lYulN4c4yBtXb1MkhGcQ3M6aPVFAAQr9cQov0wNwhWwhugWW0wsoyr9kS5NUqlMcasrjhnXCizI1shrGClJvQ8gm60zMjqx5qea+G4pAnSJIxx+MEdY7daRe2xsYjP8F8fq3K70DQC5TeipbsVTU6HAFrH7Q6hhPwxWPuzLMkTNmElbTsGIH5uylDXMt3ZNWnKBIZaBwpcqPJv/toDTS5rkl29LAPIJfamSvXAhJtbdcayCtu+QSJ4aKvENLJUvsXQn1H/4SZt4PLfEeKF/PSuw4Xaf1/wT7YZuvFglSVJpjRRNZJvuBCWdFnUlwpxTp2sWnEAX6+LLe06SwUWXm8+Uje4bXIhm4fY77pHlPFIVVVDg8QLb5n095vyrehojTHXIbwGxixwePhgBVSd9+jpi3ydXXJInbdOsGKZko9TQMrt8b/fbM3ACAxweVzKXMu6LJzsfBMxs4uZUytuwhQZ+jjdfyWepT/k/QOtoQATJLqREtY0Sw1Eph5leMVDtlxaGGle9iAKa5rAblnsNujZsTh4kbAthj7l3t5WLKoUuERnM9rU3zMy3bJQOP+ePV0kjheDEwlsVPJZTQ1duoddTWnRSwaUAZEmPzcZoGIkxDHfAgMvYTaPrzbZ9p5cn54mNvJrydEPtHOl9Y4dUsmgxk1k3BohM3i0pm4itEG4bxMgiTmgZax13zNIzRfIjulmdgKqnN5DUq/d6tdzJy3Y1kLstzzoDJf/MK/yg5q5M4Z7toCEok6rJMOiMaRFXiQMT4wblgLzFIMCMGCSqGSIb3DQEJFDEWHhQAcAByAGkAdgBhAHQAZQBrAGUAeTAhBgkqhkiG9w0BCRUxFAQSVGltZSAxNTMzMzIxMzg0Mzk2MIID1AYJKoZIhvcNAQcGoIIDxTCCA8ECAQAwggO6BgkqhkiG9w0BBwEwKQYKKoZIhvcNAQwBBjAbBBRGKL+wUI94FaTw/F5xdDBKc6iBUAIDAMNQgIIDgJEsi5SuPl6NmavpN9rEGj2BY2L0L045EFjl0IAlq/mehmIf+qKZZG7t8+3xn96guJG5bI7oTElEAi7kFt4MHvg13vbIzuv2EHPCgXc5OfGAVJfwPrHqdW4a8dYZba4/z5t6l8YGUhCG2tFc48oIchBM5MLZht/uraSCg3Tza0COjRDuiW694S7p0en9FqHiXdo/9cwqf9Tk0srU3Xw9W7R3hTg6qmB+N3+vA3TGxQ+RQW02scIRAwZY0Op6ZWuwg7p/4eLfHbkOrTbk37hVrpQL8q7klVujHt9JemODfvlEWaWAmh59oWBxLJK9Ozxx1nFcM2cQdT6JxqkBdzGwyRwu1PPL7LeCTjDFW4y2E6jMFT4G3gpq0EGmwKRkcQ6HMkzZ3wkNVvvK86MBcCTto5D0IC5LABqwSpL3lPER5w53Umah6PKvrjn6ZeWxuDbfHWYqkth8srGBYpKdFQt7HAK8Jhzdg4qTgSamgMde6t8Tnb+LQ0r/OZbrDkp569S3zsEgMbvTfe+ELpKQhkef229h/qZyQWZnsyHaZXHDkk1uUTi0ovQyZTkHBiLJr6wMgJCg4BJlw+PBqNQTNFSutjWI2iNdtZCIitvpP4HXKRPHz5dNVb1ypkzBI+gJqqLI1xMru6XnY+tdO0FAsEuJfkj/wzlxfcRtSsj8TQGS77RdgWfuhff6GQLZtCIZXIay1rL8zOeC6IwBTm9Py3Mi7nq8s2f08j7oN2v7r2LpIUQpY625FUSAuyp2DKZH5fOPcSazJASzkUzIvITjWTVZBzg30htU57ziju4VrqEJSKxX9HE2JEgp0ntfxRnTxldgSBT3HkcG8SKmCuQEl37qnc2jbz+VgvRGfdgNO6IUt5EFGMWO2EdlqUZYdmm3wvpEUkB/UzL4F6BRJ8crxpL6WrtaOqnUlFjTcsRr2wjira2/sTHQa8wVTZ0sOD2kTrTtdBA+k6tpBQi3nqymliP4YOUWi7YUMGDv+brdndg/ALbzJmB5sE8t4MCDPsWQSpaD1lmb2fElJcA3xmDpJGyPDRSInwWvDFzh+/3phYyNlVVX3LhjvoCdMKjOOP2mHZZReoEbIdAAHU+BVoH7qHFnkpdfp5+meDQYCrbyDKmqpHiHIuYgL+PET5xS9fZbuld8cYr7I0TLOI53l9WETFrmGgAineFR5t/jDffbIjNgmGyWMD4wITAJBgUrDgMCGgUABBT7kJShKm/OW4wNjBIH0lyZr1JPXAQUer/uA2jFfVjpm7h3b8Q6eZibeBgCAwGGoA==</privateKeyStore>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Cor</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT DISTINCT 
-t.desc_cor,
-t.cor_produto,
-CASE
-	WHEN t.desc_cor like '%estamp%' THEN 'Estampado'
-	WHEN t.desc_cor like '%list%' THEN 'Listrado'
-	ELSE 'Liso'
-END as padronagem
-FROM (
-	SELECT DISTINCT
-	RTRIM(pc.desc_cor_produto) as desc_cor,
-	pc.cor_produto
-	FROM produto_cores pc
-	INNER JOIN produtos p on p.produto = pc.produto
-	WHERE
-	(
-		p.grupo_produto like '[_]%'
-		and p.data_cadastramento >= GETDATE()-360
-		and pc.desc_cor_produto not like '%cancelad%'
-	) OR pc.desc_cor_produto IN ('ESTAMPADO ROSE')
-	
-	UNION
-
-	SELECT
-	RTRIM(cb.desc_cor) as desc_cor,
-	cb.cor as cor_produto
-	FROM cores_basicas cb
-	WHERE
-	cb.data_para_transferencia >= GETDATE()-360
-	OR cb.desc_cor IN ('LISTRADO CINZA')
-) t
-ORDER BY t.desc_cor;</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>96</yloc>
+      <xloc>368</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
