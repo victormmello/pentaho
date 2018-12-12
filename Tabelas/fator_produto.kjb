@@ -808,7 +808,8 @@ INSERT INTO fator_base
 			ELSE 0
 		END > 0 and
 		f.valor_sub_itens > 0 and
-		fp.serie_nf = 2 and
+		fp.serie_nf IN (2,7) and
+		f.natureza_saida = '100.01' and
 		f.filial = 'e-commerce' and
 		f.emissao >= GETDATE()-@days_from_current_date
 		GROUP BY

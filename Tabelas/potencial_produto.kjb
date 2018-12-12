@@ -767,6 +767,7 @@ FROM (
 	END > 0 and
 	f.valor_sub_itens > 0 and
 	fp.serie_nf IN (2,7) and
+	f.natureza_saida = '100.01' and
 	f.filial = 'e-commerce' and
 	f.emissao BETWEEN GETDATE()-3*360 and GETDATE()-1-30
 	GROUP BY

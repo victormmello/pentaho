@@ -496,6 +496,7 @@ FROM (
 	fp.qtde > 0 and
 	f.valor_sub_itens > 0 and
 	fp.serie_nf IN (2,7) and
+	f.natureza_saida = '100.01' and
 	f.filial = 'e-commerce' and
 	CAST(f.emissao as DATE) &lt; CAST(GETDATE() as DATE) and
 	YEAR(f.emissao)*100 + MONTH(f.emissao) >= YEAR(DATEADD(yy,-2,GETDATE()-1))*100 + MONTH(DATEADD(yy,-2,GETDATE()-1))		

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Caixa</name>
+    <name>Posicoes - Cambui</name>
     <description />
     <extended_description />
     <trans_version />
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -427,9 +428,9 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2018/09/04 11:13:31.438</created_date>
+    <created_date>2018/08/21 10:30:45.410</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2018/09/04 11:13:31.438</modified_date>
+    <modified_date>2018/08/21 10:30:45.410</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -496,19 +497,24 @@
   </connection>
   <order>
     <hop>
-      <from>Monthly Sales</from>
-      <to>Monthly Sales Output</to>
+      <from>Google Spreadsheet Input</from>
+      <to>Unique rows (HashSet)</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Table input</from>
-      <to>Google Spreadsheet Output</to>
+      <from>Unique rows (HashSet)</from>
+      <to>Add constants</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Add constants</from>
+      <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Google Spreadsheet Output</name>
-    <type>GoogleSpreadsheetOutput</type>
+    <name>Google Spreadsheet Input</name>
+    <type>GoogleSpreadsheetInput</type>
     <description />
     <distribute>Y</distribute>
     <custom_distribution />
@@ -518,9 +524,172 @@
       <schema_name />
     </partitioning>
     <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
-    <spreadsheetKey>1z4wHodDeypVXWofWuugqiRFSuQ9IXZgXtw53jPZt5pw</spreadsheetKey>
-    <worksheetId>o3kk7hj</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
+    <spreadsheetKey>1Q6sxlzbrqB6knfdcXLAobFVCNSESowVsMG4_2TfHddA</spreadsheetKey>
+    <worksheetId>o9ymsj8</worksheetId>
+    <privateKeyStore>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</privateKeyStore>
+    <fields>
+      <field>
+        <field_name>códigobarra</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>descrição</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+      <field>
+        <field_name>localização</field_name>
+        <field_type>String</field_type>
+        <field_format />
+        <field_currency />
+        <field_decimal />
+        <field_group />
+        <field_length>-1</field_length>
+        <field_precision>-1</field_precision>
+        <field_trim_type>none</field_trim_type>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Linx</connection>
+    <schema>dbo</schema>
+    <table>bi_localizacao</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field />
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field />
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field />
+    <fields>
+      <field>
+        <column_name>codigo_barra</column_name>
+        <stream_name>códigobarra</stream_name>
+      </field>
+      <field>
+        <column_name>filial</column_name>
+        <stream_name>filial</stream_name>
+      </field>
+      <field>
+        <column_name>posicao</column_name>
+        <stream_name>localização</stream_name>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unique rows (HashSet)</name>
+    <type>UniqueRowsByHashSet</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <store_values>N</store_values>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description />
+    <fields>
+      <field>
+        <name>códigobarra</name>
+      </field>
+      <field>
+        <name>localização</name>
+      </field>
+    </fields>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Add constants</name>
+    <type>Constant</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>filial</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif>E-COMMERCE</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
     <cluster_schema />
     <remotesteps>
       <input>
@@ -530,207 +699,7 @@
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Monthly Sales</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT
-LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))) as filial,
-YEAR(vp.data_venda)*100 + MONTH(vp.data_venda) as anomes,
-CONVERT(NVARCHAR,vp.data_venda,103) as data_venda,
-CAST(SUM(vp.qtde*(v.valor_pago/v.valor_venda_bruta*vp.preco_liquido)) as INT) as receita_total
-FROM loja_venda_produto vp
-INNER JOIN loja_venda v on
-	v.ticket = vp.ticket and
-	vp.codigo_filial = v.codigo_filial and
-	v.data_venda = vp.data_venda
-INNER JOIN filiais f on f.cod_filial = vp.codigo_filial
-INNER JOIN produtos p on p.produto = vp.produto
-INNER JOIN produtos_precos c on
-	p.produto = c.produto and
-	c.codigo_tab_preco = 02 -- 02 custo
-LEFT JOIN bi_categorizacao_categoria ccc on
-	ccc.grupo_produto = p.grupo_produto and
-	ccc.cod_categoria = p.cod_categoria and
-	ccc.subgrupo_produto is null and
-	ccc.tipo_produto is null
-LEFT JOIN bi_categorizacao_categoria cct on
-	cct.grupo_produto = p.grupo_produto and
-	cct.tipo_produto = p.tipo_produto and
-	cct.subgrupo_produto is null and
-	cct.cod_categoria is null
-LEFT JOIN bi_categorizacao_categoria ccs on
-	ccs.grupo_produto = p.grupo_produto and
-	ccs.subgrupo_produto = p.subgrupo_produto and
-	ccs.tipo_produto is null and
-	ccs.cod_categoria is null
-LEFT JOIN bi_categorizacao_categoria cc on
-	cc.grupo_produto = p.grupo_produto and
-	cc.subgrupo_produto is null and
-	cc.tipo_produto is null and
-	cc.cod_categoria is null
-WHERE
-p.grupo_produto != 'GIFTCARD' and
-vp.qtde > 0 and
-vp.preco_liquido > 0 and
-v.valor_venda_bruta > 0 and
-vp.data_venda >= '20170601'
-GROUP BY
-LTRIM(RTRIM(COALESCE(NULLIF(f.filial,'E-COMMERCE'),'CAMBUI'))),
-YEAR(vp.data_venda)*100 + MONTH(vp.data_venda),
-CONVERT(NVARCHAR,vp.data_venda,103)
-
-
-UNION
-
-SELECT
-'E-COMMERCE' as filial,
-YEAR(f.emissao)*100 + MONTH(f.emissao) as anomes,
-CONVERT(NVARCHAR,f.emissao,103) as data_venda,
-CAST(SUM(f.valor_total/f.valor_sub_itens*fp.valor) as INT) as receita_total
-FROM faturamento_prod fp
-INNER JOIN faturamento f on
-	f.nf_saida = fp.NF_SAIDA and
-	fp.filial = f.filial
-INNER JOIN produtos p on p.produto = fp.produto
-INNER JOIN produtos_precos c on
-	p.produto = c.produto and
-	c.codigo_tab_preco = 02 -- 02 custo
-LEFT JOIN bi_categorizacao_categoria ccc on
-	ccc.grupo_produto = p.grupo_produto and
-	ccc.cod_categoria = p.cod_categoria and
-	ccc.subgrupo_produto is null and
-	ccc.tipo_produto is null
-LEFT JOIN bi_categorizacao_categoria cct on
-	cct.grupo_produto = p.grupo_produto and
-	cct.tipo_produto = p.tipo_produto and
-	cct.subgrupo_produto is null and
-	cct.cod_categoria is null
-LEFT JOIN bi_categorizacao_categoria ccs on
-	ccs.grupo_produto = p.grupo_produto and
-	ccs.subgrupo_produto = p.subgrupo_produto and
-	ccs.tipo_produto is null and
-	ccs.cod_categoria is null
-LEFT JOIN bi_categorizacao_categoria cc on
-	cc.grupo_produto = p.grupo_produto and
-	cc.subgrupo_produto is null and
-	cc.tipo_produto is null and
-	cc.cod_categoria is null
-WHERE
-p.grupo_produto != 'GIFTCARD' and
-fp.qtde > 0 and
-f.valor_sub_itens > 0 and
-fp.serie_nf IN (2,7) and
-f.natureza_saida = '100.01' and
-f.filial = 'e-commerce' and
-f.emissao >= '20170601'
-GROUP BY
-CONVERT(NVARCHAR,f.emissao,103),
-YEAR(f.emissao)*100 + MONTH(f.emissao)</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>307</xloc>
-      <yloc>244</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Monthly Sales Output</name>
-    <type>GoogleSpreadsheetOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <serviceEmail>spreadsheets@marcia-mello.iam.gserviceaccount.com</serviceEmail>
-    <spreadsheetKey>1z4wHodDeypVXWofWuugqiRFSuQ9IXZgXtw53jPZt5pw</spreadsheetKey>
-    <worksheetId>obkrixb</worksheetId>
-    <privateKeyStore>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</privateKeyStore>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>467</xloc>
-      <yloc>244</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Linx</connection>
-    <sql>SELECT
-YEAR(cp.entrega)*100 + MONTH(cp.entrega) as data_entrega,
-CONVERT(NVARCHAR,cp.entrega + COALESCE(pp.vencimento,60),103) as data_parcela,
-LTRIM(RTRIM(c.fornecedor)) as fornecedor,
-REPLACE(SUM(cp.valor_entregar * COALESCE(pp.percentual,1)),'.',',') as custo
-FROM compras_produto cp
-INNER JOIN compras c on cp.pedido = c.pedido
-INNER JOIN produtos p on p.produto = cp.produto
-LEFT JOIN bi_prazos_fornecedor pf on pf.fornecedor = c.fornecedor
-LEFT JOIN bi_prazos_pagamento pp on pp.prazo = pf.prazo
-WHERE
-p.grupo_produto != 'GIFTCARD' and
-YEAR(cp.entrega)*100 + MONTH(cp.entrega) >= YEAR(GETDATE()-1)*100 + MONTH(GETDATE()-1) and
-cp.entrega &lt; GETDATE()+180 and
-COALESCE(cp.valor_entregue,0) = 0
-group by
-YEAR(cp.entrega)*100 + MONTH(cp.entrega),
-CONVERT(NVARCHAR,cp.entrega + COALESCE(pp.vencimento,60),103),
-LTRIM(RTRIM(c.fornecedor))</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>304</xloc>
-      <yloc>160</yloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
