@@ -1041,7 +1041,7 @@ base as (
 	ppc.produto,
 	ppc.cor_produto,
 	COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros') as categoria,
-	p.fabricante,
+	--p.fabricante,
 	CASE
 		WHEN c.preco1 &lt; 20 THEN '01. 0-20'
 		WHEN c.preco1 &lt; 40 THEN '02. 20-40'
@@ -1060,7 +1060,7 @@ base as (
 	END as faixa_de_custo,
 	ROW_NUMBER() OVER(PARTITION BY 
 		COALESCE(ccc.categoria,cct.categoria,ccs.categoria,cc.categoria,'Outros'),
-		p.fabricante,
+		--p.fabricante,
 		CASE
 			WHEN c.preco1 &lt; 20 THEN '01. 0-20'
 			WHEN c.preco1 &lt; 40 THEN '02. 20-40'
@@ -1122,19 +1122,19 @@ FROM base b
 LEFT JOIN (
 	SELECT
 	b.categoria,
-	b.fabricante,
+	--b.fabricante,
 	b.faixa_de_custo,
 	MAX(numero) as modelos
 	FROM base b
 	GROUP BY
 	b.categoria,
-	b.fabricante,
+	--b.fabricante,
 	b.faixa_de_custo
 	HAVING
 	COUNT(*) > 5
 ) m on 
 	b.categoria = m.categoria and
-	b.fabricante = m.fabricante and
+	--b.fabricante = m.fabricante and
 	b.faixa_de_custo = m.faixa_de_custo;
 
 INSERT INTO bi_potencial_produto_barra
